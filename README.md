@@ -1,70 +1,20 @@
-# Getting Started with Create React App
+# Front-End : Login 페이지
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+🔹 src > components 안에 있는 파일 위주로 보시면 됩니다.
 
-In the project directory, you can run:
+기본 로그인 창은 LoginPage.jsx 이고, 나머지 Logo.jsx와 Login_btn.jsx는 컴포넌트, 그리고 MainPage.jsx는 일단 페이지만 만들어 둔 거라 무시하셔도 될거같아요
 
-### `npm start`
+🔹 처음 창 열면 메인페이지(MainPage.jsx)가 먼저 뜨는데 url 마지막에 /login 입력하시면 로그인 창으로 넘어갑니다!
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+🔹 백엔드 통신에 사용하는 axios는 LoginPage.jsx -> onSubmitLogin 안에 있습니다. 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
++ID저장은 쿠키를 이용해서 구현했기 때문에,서버에 id하고 password만 보내면 될거 같아서 saveId는 일단 주석 처리 해뒀습니다. 혹시 필요하시면 주석 없애고 사용해주세요!
 
-### `npm test`
++Fake서버 사용해보느라 url자리에 https://reqres.in/api/login 이렇게 입력되어 있는데 이부분 지우고 하시면 될거같아요!
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+🔹변수명 설명
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- id: 사용자가 입력한 id (->이메일 형식 으로 입력해야 합니다!)
+- password: 사용자가 입력한 비밀번호
+- saveId : 사용자가 'ID 저장' 체크박스 선택 유무 (선택:true / 해제: false)
