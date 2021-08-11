@@ -1,7 +1,34 @@
 .App {
-  text-align: center;
+  width: 560px;
+  position: absolute; 
+  left: 50%; 
+  margin-left: -280px; /*412pt = 560px*/
+  
+}
+table {
+  margin-left:auto; 
+  margin-right:auto;
+}
+table, th, td {
+  border-collapse : collapse;
+  width: 430px;
+
+  margin-top: 5px;
+  /* border: 1px solid black; */
+}
+.Left {
+  text-align: left;
+}
+.Right {
+  text-align: right;
 }
 
+a {
+  font-size: 90%;
+  text-decoration: none;
+  color: gray;
+}
+/* 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -35,4 +62,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
