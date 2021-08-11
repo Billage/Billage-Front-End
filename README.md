@@ -3,7 +3,7 @@
 
 🔹 src > components 안에 있는 파일 위주로 보시면 됩니다.
 
-기본 로그인 창은 LoginPage.jsx 이고, 나머지 Logo.jsx와 Login_btn.jsx는 컴포넌트, 그리고 MainPage.jsx는 일단 페이지만 만들어 둔 거라 무시하셔도 될거같아요
+기본 로그인 창은 LoginPage.jsx 이고, 나머지 Logo.jsx와 Login_btn.jsx는 컴포넌트, 그리고 MainPage.jsx, ViewPage.jsx 는 일단 페이지만 만들어 둔 거라 무시하셔도 될거같아요
 
 🔹 처음 창 열면 메인페이지(MainPage.jsx)가 먼저 뜨는데 url 마지막에 /login 입력하시면 로그인 창으로 넘어갑니다!
 
