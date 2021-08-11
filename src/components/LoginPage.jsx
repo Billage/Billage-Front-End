@@ -81,8 +81,12 @@ function LoginPage(props) {
     `;
 
     let style = {
-        width:"420px",
+        width:"380px",
         height:"60px"
+      }
+    let style2 = {
+        border:"none",
+        background:"none"
       }
       
    return (
@@ -92,6 +96,7 @@ function LoginPage(props) {
                 <input type="email" placeholder='빌리지 ID' style={style} value={id} onChange={onIdHandler}/><br/><br/>
                 <input type="password" placeholder='비밀번호' style={style} value={password} onChange={onPasswordHandler}/>
                 <br/>
+
                 <table>
                     <tr>
                         <td><Left><input type="checkbox" name="save_id" value="save_id" checked={saveId} onChange={handleOnChange}/>ID 저장</Left></td>
@@ -100,7 +105,7 @@ function LoginPage(props) {
                 </table>
                 
                 <br/>
-                <button type="submit"><LoginBtn title="빌리지"></LoginBtn></button>
+                <button type="submit" style={style2}><LoginBtn title="빌리지"></LoginBtn></button>
                 <br/><br/>
                 <LoginBtn title="카카오톡"></LoginBtn>
 

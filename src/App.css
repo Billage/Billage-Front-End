@@ -1,8 +1,8 @@
 .App {
-  width: 560px;
+  width: 412px;
   position: absolute; 
   left: 50%; 
-  margin-left: -280px; /*412pt = 560px*/
+  margin-left: -206px; /*412pt = 560px*/
   
 }
 table {
@@ -11,7 +11,7 @@ table {
 }
 table, th, td {
   border-collapse : collapse;
-  width: 430px;
+  width: 390px;
 
   margin-top: 5px;
   /* border: 1px solid black; */
@@ -28,6 +28,32 @@ a {
   text-decoration: none;
   color: gray;
 }
+
+/* ListPage */
+/* .ListTable {
+  margin-left:auto; 
+  margin-right:auto;
+}
+.ListTable, .ListTd, .ListTr {
+  border-collapse : collapse;
+  width: 400px;
+  margin-top: 5px;
+   border: 1px solid black; 
+} */
+
+/* Header */
+/* .HeaderTable {
+  margin-left:auto; 
+  margin-right:auto;
+  border: 1px solid black; 
+}
+.HeaderTd {
+  width: 10%;
+}
+.HeaderTh {
+  width: 60%;
+} */
+
 /* 
 .App-logo {
   height: 40vmin;
