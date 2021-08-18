@@ -1,4 +1,6 @@
 ✨빌려주세요 게시판 안내✨
+(모두 src 내부의 파일들입니다.)
+
 BoardNav.jsx  게시판 nav bar (상단 바) 컴포넌트 
 
 BorrowBoard.jsx 빌려주세요 게시판 전체를 나타내는 컴포넌트
