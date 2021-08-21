@@ -41,7 +41,10 @@ function LoginPage(props) {
         event.preventDefault(); 
 
         //아이디 또는 비밀번호 입력안했을 때 
-        if (!id) {
+        if (!id && !password) {
+          alert('아이디와 비밀번호를 입력하세요');
+          return;
+        } else if (!id) {
           alert('아이디를 입력하세요');
           return;
         } else if (!password) {
@@ -95,6 +98,7 @@ function LoginPage(props) {
             <form onSubmit={onSubmitLogin}>
                 <input type="email" placeholder='빌리지 ID' style={style} value={id} onChange={onIdHandler}/><br/><br/>
                 <input type="password" placeholder='비밀번호' style={style} value={password} onChange={onPasswordHandler}/>
+                
                 <br/>
 
                 <table>

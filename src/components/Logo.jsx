@@ -13,7 +13,7 @@ class Logo extends Component {
       return (
         <LogoStyle>
         <header>
-          <a href = "/login"><img class="main_img" src={logo_img} alt="Billage logo"></img></a>
+          <a href = "/"><img class="main_img" src={logo_img} alt="Billage logo"></img></a>
         </header>
         </LogoStyle>
       );

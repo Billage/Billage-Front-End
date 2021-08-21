@@ -1,21 +1,26 @@
 .App {
-  width: 412px;
+  display: flex;
+  justify-content:space-between;
+  /* width: 412px;
   position: absolute; 
   left: 50%; 
-  margin-left: -206px; 
+  margin-left: -206px;  */
   
 }
-table {
+
+/* table {
   margin-left:auto; 
   margin-right:auto;
 }
 table, th, td {
-  border-collapse : collapse;
-  width: 390px;
+  border-collapse : collapse; 
+  display: flex;
+
+  width: 390px; 
 
   margin-top: 5px;
-  /* border: 1px solid black; */
-}
+ border: 1px solid black; 
+} */
 .Left {
   text-align: left;
 }
@@ -35,12 +40,17 @@ a {
   margin-right:auto;
   border-bottom: 1px solid lightgray;
 }
-.ListTable, .ListTd, .ListTr {
+.ListTable, .ListTd, .ListTr, .ListTh {
   border-collapse : collapse;
   width: 400px;
   height: 40px;
   margin-top: 5px;
- 
+
+  /* border: 1px solid blue; */
+  
+}
+.ListTh {
+  width: 100px;
 }
 
 /* Header */
@@ -56,8 +66,18 @@ a {
   width: 60%;
 }
 
-
-
+/* Search */
+.searchTable {
+  background-color: #F3F3F3;
+  height: 30px;
+  width: 400px;
+}
+.searchTh {
+  width: 90%;
+}
+.searchTd {
+  width: 10%;
+}
 
 /* 
 .App-logo {

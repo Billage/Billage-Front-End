@@ -11,7 +11,7 @@ import './App.css';
 import Axios from 'axios';
 import MainPage from './components/MainPage';
 import LoginPage from './components/LoginPage';
-import ListPage from './components/ListPage';
+import BorrowBoard from './components/BorrowBoard';
 const Page = styled.html` 
 text-align: center;
   `;
@@ -25,7 +25,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={MainPage} />
           <Route exact path="/login" component={LoginPage} />
-          <Route exact path="/list" component={ListPage} />
+          <Route exact path="/BorrowBoard" component={BorrowBoard}/>
         </Switch>
         </Page>
       </div>
