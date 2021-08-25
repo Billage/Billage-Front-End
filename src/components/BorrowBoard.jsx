@@ -1,4 +1,3 @@
-//빌려주세요 게시판 전체를 나타내는 파일입니다.
 import React, {useState, useEffect} from 'react';
 import BoardNav from '../components/BoardNav';
 import styled from "styled-components";
@@ -8,15 +7,17 @@ import PostComponent2 from '../components/PostComponent2';
 
 //검색박스 전체 (회색 둥글둥글 모양) 스타일링입니다.
 const SearchBox=styled.div`
+
     position:relative;
     background-color:#E5E5E5;
     border-radius:20px;
-    margin:15px;
+    margin:-15px 15px 10px 15px;
     padding:5px 5px 5px 20px;
     height:25px;
     display:flex;
     align-items:center;
     justify-content:flex-end;
+
     `;
 //위의 검색박스 내의 input 창 스타일링입니다.
 const Input=styled.input`
@@ -52,11 +53,19 @@ font-family:'KoddiUDOnGothic-Regular';
 const MenuStyled=styled.div`
     display:flex;
     justify-content:space-evenly;
+    
+`;
 
+//스크롤 할때 상단 고정
+const PageStyled=styled.div`
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+    background-color: white;
 `;
 
 const BorrowBoard=()=>{
-    const [showAddress, setShowAddress]=useState('용현동'); //현재 사용자의 주소
+    const [showAddress, setShowAddress]=useState('##동'); //현재 사용자의 주소
     const [searchText,setSearchText]=useState(''); //검색 input 창에 입력되는 text
     const [dataList,setDataList]=useState([]); //백엔드에서 가져온 데이터 담는 배열
 
@@ -78,7 +87,10 @@ const BorrowBoard=()=>{
     //         startDate="08/12"
     //         endDate="08/31"
     //         cost="30,000"
-    //     />    )};
+    //     /> 
+        
+    //        )};
+        
     // const onClickMenu2 = (e) => {
     //     e.preventDefault();
     //     setFontStyle1({color: "gray"});
@@ -101,6 +113,7 @@ const BorrowBoard=()=>{
             console.error(e);  // 에러표시
         });
     };
+
     // 페이지가 로드될 때 
     useEffect(() =>{ 
         loadItem(); 
@@ -115,7 +128,6 @@ const BorrowBoard=()=>{
         .catch( e => console.log(e));
      }, []);
 
-
     const searchChange=(e)=>{//검색창에 text 입력했을 때 입력한 text를 검색 text에 넣어줌
         setSearchText(e.target.value);
     };
@@ -125,12 +137,23 @@ const BorrowBoard=()=>{
 
     return(
     <>
-   <BoardNav showAddress={showAddress} boardName="빌려주세요" />        
-    <SearchBox>
-    <Input value={searchText} onChange={searchChange}/>
-    {searchText&&<StyledButton onClick={btnClick} color="#E5E5E5"><Img src="img/search.png" alt="검색"/></StyledButton>}
-    {/* 검색창에 입력된 text 내용이 있을 경우 검색 버튼이 활성화됩니다. */}
-    </SearchBox>
+   <BoardNav showAddress={showAddress} boardName="게시판" />    
+    <PageStyled>
+        <br/>
+        <SearchBox>
+        <Input value={searchText} onChange={searchChange}/>
+        {searchText&&<StyledButton onClick={btnClick} color="#E5E5E5"><Img src="img/search.png" alt="검색"/></StyledButton>}
+        {/* 검색창에 입력된 text 내용이 있을 경우 검색 버튼이 활성화됩니다. */}
+        </SearchBox>
+        <MenuStyled>
+        <a href="/" onClick={onClickMenu1} style={fontStyle1}>빌려줄게요</a>
+        <a href="/" onClick={onClickMenu2} style={fontStyle2}>빌려주세요</a>
+        </MenuStyled>
+        <hr></hr>
+    </PageStyled>
+
+        {post}
+
     <List>
 
     {/* dataList에서 받아온 data 들을 하나씩 게시글 컴포넌트로 감쌉니다.
@@ -146,6 +169,7 @@ const BorrowBoard=()=>{
                         cost={data.cost}
                         key={data.id}
                         />
+                        
                     )
                 )}
         {dataList.map((data) => (
@@ -162,14 +186,7 @@ const BorrowBoard=()=>{
                     )
         )}
    
-    <div>
-        <MenuStyled>
-        <a href="/" onClick={onClickMenu1} style={fontStyle1}>빌려줄게요</a>
-        <a href="/" onClick={onClickMenu2} style={fontStyle2}>빌려주세요</a>
-        </MenuStyled>
-        <hr></hr>
-        {post}
-    </div>
+
               
     </List>
     </>
