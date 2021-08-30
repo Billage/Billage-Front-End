@@ -85,7 +85,7 @@ const BorrowBoard=()=>{
     필요한 데이터들은 props로 넘겨줍니다. */}
     {/* {dataList.map((data) => (
         // PostComponent 내의 변수 설명은 PostComponent.jsx 파일 내부에
-                        <PostComponent
+                       return( <PostComponent
                         title={data.title}
                         postDate={data.postDate} 
                         writerAddress={data.writerAddress} 
@@ -93,7 +93,7 @@ const BorrowBoard=()=>{
                         endDate={data.endDate}
                         cost={data.cost}
                         key={data.id}
-                        />
+                        />/);
                     )
                 )}; */}
                 {/* 아래는 게시글 출력 확인차 적어놓은 더미 post component 입니다. */}
