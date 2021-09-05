@@ -15,7 +15,7 @@ const StyledNav=styled.ul`
     color: gray;
     font-size:15px;
     font-weight:bold;
-    
+    text-align: center;
     `;
 ;
 const StyledTitle=styled.li`
@@ -29,10 +29,10 @@ const StyledFirst=styled.li`
      flex-basis: 70px;
 `;
 
-const BoardNav=({showAddress})=>{
+const BoardNav=({showAddress, login})=>{
     return(
         <div>
-        <StyledNav>
+         <StyledNav>
             <StyledFirst><li></li></StyledFirst>
             <StyledTitle>
             <li><Img src="Img/logo.png" alt="로고" />
@@ -40,17 +40,20 @@ const BoardNav=({showAddress})=>{
             </li>
             </StyledTitle>
             <StyledIcon>
-                <li>
+                {login?
+                (<li>
                 <StyledButton onClick={()=>{alert('글 등록 버튼입니다.')}}><Img src="img/plus.png" alt="글 등록"/></StyledButton>
-                <StyledButton onClick={()=>{alert('마이페이지 버튼입니다.')}}><Img src="img/mypage.png" alt="마이페이지"/></StyledButton>
-                </li>
+                <StyledButton onClick={()=>{alert('마이페이지 버튼입니다.')}}><Img src="img/chat.png" alt="마이페이지"/></StyledButton>
+                </li>)
+                : 
+                <a href = "/login"><StyledButton style={{marginRight:'30px',textAlign:'center',display:'flex',justifyContent:'space-evenly'}}><Img src="img/login.png" alt="로그인"/></StyledButton></a>
+                }   
             </StyledIcon>
   
         </StyledNav>
 
         </div>
         
-
         // <StyledNav>
         // <div>
         // <StyledTitle><Img src="Img/logo.png" alt="로고" /></StyledTitle>

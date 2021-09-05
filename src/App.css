@@ -21,17 +21,11 @@ table, th, td {
   margin-top: 5px;
  border: 1px solid black; 
 } */
-.Left {
-  text-align: left;
-}
-.Right {
-  text-align: right;
-}
+
 
 a {
-  font-size: 90%;
+  font-size: 95%;
   text-decoration: none;
-  color: gray;
 }
 
 /* ListPage */
@@ -49,25 +43,25 @@ a {
   /* border: 1px solid blue; */
   
 }
-.ListTh {
+/* .ListTh {
   width: 100px;
-}
+} */
 
 /* Header */
-.HeaderTable {
+/* .HeaderTable {
   margin-left:auto; 
-  margin-right:auto;
+  margin-right:auto;}
   /* border: 1px solid black;  */
-}
-.HeaderTd {
+
+/* .HeaderTd {
   width: 10%;
 }
 .HeaderTh {
   width: 60%;
-}
+} */
 
 /* Search */
-.searchTable {
+/* .searchTable {
   background-color: #F3F3F3;
   height: 30px;
   width: 400px;
@@ -77,7 +71,7 @@ a {
 }
 .searchTd {
   width: 10%;
-}
+} */
 
 /* 
 .App-logo {

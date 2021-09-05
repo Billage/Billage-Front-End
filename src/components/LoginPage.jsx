@@ -75,45 +75,58 @@ function LoginPage(props) {
         });
     }
 
-    const Left = styled.div`
-        text-align:left;
-        color: gray;
+    // const Left = styled.div`
+    //     text-align:left;
+    //     color: gray;
+    // `;
+    // const Right = styled.div`
+    //     text-align:right;
+    // `;
+
+    // id저장, 회원가입 부분 style
+    const Styled = styled.div`
+      width: 390px;
+      margin-top: auto;
+      margin-botton: auto;
+      display: inline-block;
+
+      margin: 5px 0px 20px 0px;
     `;
-    const Right = styled.div`
-        text-align:right;
+    
+    const Center = styled.div`
+      display: flex;
+      align-items: center; 
+      background-color: lightpink;
+
     `;
 
-    let style = {
+    let inputStyle = {
         width:"380px",
-        height:"60px"
-      }
-    let style2 = {
-        border:"none",
-        background:"none"
-      }
-      
+        height:"60px",
+        margin: "8px"
+    }
+
    return (
        <div>
            <Logo></Logo>
-            <form onSubmit={onSubmitLogin}>
-                <input type="email" placeholder='빌리지 ID' style={style} value={id} onChange={onIdHandler}/><br/><br/>
-                <input type="password" placeholder='비밀번호' style={style} value={password} onChange={onPasswordHandler}/>
-                
-                <br/>
-
-                <table>
-                    <tr>
-                        <td><Left><input type="checkbox" name="save_id" value="save_id" checked={saveId} onChange={handleOnChange}/>ID 저장</Left></td>
-                        <td><Right><a href="/login">회원가입</a></Right></td> {/*일단 로그인 페이지로 연결*/}
-                    </tr>
-                </table>
-                
-                <br/>
-                <button type="submit" style={style2}><LoginBtn title="빌리지"></LoginBtn></button>
-                <br/><br/>
-                <LoginBtn title="카카오톡"></LoginBtn>
-
-            </form>
+            <Center>
+              <form onSubmit={onSubmitLogin}>
+                  <input type="email" placeholder='빌리지 ID' style={inputStyle} value={id} onChange={onIdHandler}/><br/>
+                  <input type="password" placeholder='비밀번호' style={inputStyle} value={password} onChange={onPasswordHandler}/>
+                  <br/>
+                  <Styled>
+                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                      <label><input type="checkbox" name="save_id" value="save_id" checked={saveId} onChange={handleOnChange}/>ID 저장</label>
+                      <a href="/login">회원가입</a>
+                    </div>
+                  </Styled>
+                  <br/>
+                  
+                  <button style={{border: 'none', background:'none'}} type="submit"><LoginBtn title="빌리지"></LoginBtn></button>
+                  <br/>
+                  <LoginBtn title="카카오톡"></LoginBtn>
+              </form>
+            </Center>
         </div>
     )
 }

@@ -23,12 +23,10 @@ const PostImg=styled.div`
     justify-content:space-between;
     margin-right: 10px;
     margin-bottom:3px;
-
 `;
 
 //게시글 제일 상단(글 제목, 작성날짜) 스타일링
 const PostHeader=styled.div`
-
     display: flex;
     justify-content:space-between;
     margin-bottom:3px;
