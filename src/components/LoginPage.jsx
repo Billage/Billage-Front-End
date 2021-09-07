@@ -6,6 +6,21 @@ import axios from 'axios';
 import {useCookies} from 'react-cookie';
 import { withRouter } from 'react-router-dom';
 
+ // id저장, 회원가입 부분 style
+ const Styled = styled.div`
+ width: 390px;
+ margin-top: auto;
+ margin-botton: auto;
+ display: inline-block;
+
+ margin: 5px 0px 20px 5px;
+`;
+
+const Center = styled.div`
+  display: flex;
+  justify-content: center;
+
+`;
 function LoginPage(props) {
 
     const [id, setId] = useState("");
@@ -37,6 +52,11 @@ function LoginPage(props) {
       }
     }
 
+    const kakaoSubmit = (e) => {
+      e.preventDefault();
+      window.location.href = "/SignUp_kakao";
+    }
+    
     const onSubmitLogin = (event) => {
         event.preventDefault(); 
 
@@ -83,22 +103,7 @@ function LoginPage(props) {
     //     text-align:right;
     // `;
 
-    // id저장, 회원가입 부분 style
-    const Styled = styled.div`
-      width: 390px;
-      margin-top: auto;
-      margin-botton: auto;
-      display: inline-block;
-
-      margin: 5px 0px 20px 0px;
-    `;
-    
-    const Center = styled.div`
-      display: flex;
-      align-items: center; 
-      background-color: lightpink;
-
-    `;
+   
 
     let inputStyle = {
         width:"380px",
@@ -117,14 +122,14 @@ function LoginPage(props) {
                   <Styled>
                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
                       <label><input type="checkbox" name="save_id" value="save_id" checked={saveId} onChange={handleOnChange}/>ID 저장</label>
-                      <a href="/login">회원가입</a>
+                      <a href="/SignUp">회원가입</a>
                     </div>
                   </Styled>
                   <br/>
                   
                   <button style={{border: 'none', background:'none'}} type="submit"><LoginBtn title="빌리지"></LoginBtn></button>
                   <br/>
-                  <LoginBtn title="카카오톡"></LoginBtn>
+                  <button style={{border: 'none', background:'none'}} onClick={kakaoSubmit} ><LoginBtn title="카카오톡"></LoginBtn></button>
               </form>
             </Center>
         </div>

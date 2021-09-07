@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        window.onload = () => {
+            if (new URL(location.href).searchParams.get('login_error')) {
+                alert(new URL(location.href).searchParams.get('login_error'));
+            }
+        };
+    </script>
+    <title>로그인</title>
+</head>
+<body>
+    <form action="/auth/login" method="post">
+        <input id="email" name="email" type="email" placeholder="이메일" autofocus required><br>
+        <input id="password" name="password" type="password" placeholder="비밀번호" required><br>
+        <button type="submit">로그인</button>
+        <a href="join"><button type="button">회원가입</button></a><br>
+        <button><a id="kakao" name="kakao" href="/auth/kakao">카카오톡으로 로그인하기</a></button>
+    </form>
+</body>
+</html>

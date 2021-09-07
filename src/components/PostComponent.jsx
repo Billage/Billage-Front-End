@@ -1,5 +1,6 @@
 import React  from 'react';
 import styled from "styled-components";
+
 // 게시글 하나 전체를 묶는 div 태그의 스타일링
 const Post=styled.div`
     border-bottom: solid 2px #E5E5E5;

@@ -148,8 +148,8 @@ const ImgTurn=styled.div`
 
     const onClickChat = () => {
         window.location.href = "/Chatting";
-
     }
+    
     return(
         <div>
         <ImgWrapper arrLength={imgArr.length}>
@@ -171,7 +171,8 @@ const ImgTurn=styled.div`
                 {/* 글쓴이 주소 */}
                 </div>
             </div>
-            <HighLight> {postInfo.startDate} - {postInfo.endDate}
+            <HighLight> 
+                {postInfo.startDate} - {postInfo.endDate}
             </HighLight> 대여기간
         </PostHeader>
         <PostTitle>

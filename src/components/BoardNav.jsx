@@ -1,7 +1,7 @@
 //제일 위에 보라색 nav bar 부분입니다.
 import React, {useState} from 'react';
 import styled from "styled-components";
-import {Img, StyledButton} from "../components/BorrowBoard";
+import {Img, StyledButton} from "./MainBoards";
 
 // nav 바를 감싸는 ul 태그 styled component 입니다.
 const StyledNav=styled.ul` 
@@ -42,8 +42,8 @@ const BoardNav=({showAddress, login})=>{
             <StyledIcon>
                 {login?
                 (<li>
-                <StyledButton onClick={()=>{alert('글 등록 버튼입니다.')}}><Img src="img/plus.png" alt="글 등록"/></StyledButton>
-                <StyledButton onClick={()=>{alert('마이페이지 버튼입니다.')}}><Img src="img/chat.png" alt="마이페이지"/></StyledButton>
+                <StyledButton onClick={()=>{window.location.href = "/Write";}}><Img src="img/plus.png" alt="글 등록"/></StyledButton>
+                <StyledButton onClick={()=>{alert('채팅목록 버튼입니다.')}}><Img src="img/chat.png" alt="마이페이지"/></StyledButton>
                 </li>)
                 : 
                 <a href = "/login"><StyledButton style={{marginRight:'30px',textAlign:'center',display:'flex',justifyContent:'space-evenly'}}><Img src="img/login.png" alt="로그인"/></StyledButton></a>

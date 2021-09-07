@@ -7,11 +7,11 @@ class Login_btn extends Component {
       const howToLogin = this.props.title;
       let img;
       if(howToLogin==='빌리지') {
-         return <img src={billage_login_img} alt="빌리지ID 로그인"></img>
+         return <img src={billage_login_img} alt="빌리지ID 로그인" style={{'margin-left' : '5px'}}></img>
          
       }
       else if(howToLogin==='카카오톡') {
-         return <a href="/login"><img src={kakao_login_img} alt="카카오톡으로 로그인"></img></a>
+         return <img src={kakao_login_img} alt="카카오톡으로 로그인" style={{'margin-left' : '5px'}}></img>
       }
 
     }

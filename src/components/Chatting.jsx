@@ -1,28 +1,46 @@
 import React, { useState, useEffect } from 'react'
 import styled from "styled-components";
+import '../ChatStyle.css';
 import axios from 'axios';
 import socketio from 'socket.io-client';
-import send from '../components/images/send.png'
+import send from '../components/images/send.png';
+import useChat from "../useChat";
+import moment from "moment";
+
 const TopStyled = styled.ul`
     display: flex;
     height: 25px;
     align-items:center;
     list-style:none;
-    
+`;
+const Top = styled.div`
+    padding-top: 1px;
+    background-color: white;
     //상단고정
     position: sticky;
-    top: 0px;
+    top: 0;
     z-index: 1;
+
+`;
+const ChatList = styled.div`
+  margin-left: 15px;
+  margin-right: 15px;
+  overflow-y: auto;
 `;
 
-//채팅창 하단 고정
-// const BottomFix = styled.div`
-    
-//     display: flex;
-//     position: fixed;
-//     bottom: 0px;
-//     // z-index: 1;
-// `;
+const msessage = styled.span`
+    // display: inline-block;
+    // padding: 7px 15px;
+    // margin-bottom: 20px;
+    // margin-top: 5px;
+`;
+
+const Nick = styled.div`
+    font-size: 5px;
+    color: gray;
+    margin-bottom: -4px;
+`;
+
 const InputStyled = styled.input`
     margin: 5px 5px 5px 5px;
     display: flex;
@@ -38,103 +56,179 @@ const InputBox = styled.div`
     border-radius : 10px;
     height: 25px;
     align-items:center;
-
-    // 하단고정
-    // position: fixed;
-    bottom: 0px;
-    // width: 100%;
+    background-color: white;
 `;
+const Bottom = styled.div`
+  background-color: white;
+  // 하단고정
+    position: fixed;
+    bottom:0px;
+    width: 100%;
+
+`;
+
 const Button = styled.button`
     border: none;
     background: none;
     margin-top: 3px;
 `;
 
+//날짜 스타일 
+const Line = styled.div`
+    display: flex;
+    flex-basis: 100%;
+    align-items : center;
+    color: rgba(0, 0, 0, 0.35);
+    font-size: 13px;
+    margin: 8px 0px;
+
+    ::before {
+      content: "";
+      flex-grow: 1;
+      margin: 0px 16px;
+      background: rgba(0, 0, 0, 0.35);
+      height: 1px;
+      line-height: 0px;
+    }
+    ::after {
+      content: "";
+      flex-grow: 1;
+      margin: 0px 16px;
+      background: rgba(0, 0, 0, 0.35);
+      height: 1px;
+      line-height: 0px;
+    }
+`;
+//시간 스타일
+const MyTime = styled.span`
+    color: gray;
+    font-size: 5px;
+    margin-right: 4px;
+`;
+const AnotherTime = styled.span`
+    color: gray;
+    font-size: 5px;
+    margin-left: 4px;
+`;
+
+// const socket = socketio.connect("http://localhost:3001");  
 const Chatting = (props) => {
-    // const { roomId } = props.match.params; // Gets roomId from URL
-    const [chatName, setChatName]=useState('채팅방이름');
+    const { roomId } = props.match.params;
+    const { messages, sendMessage } = useChat(roomId);
+    const [newMessage, setNewMessage] = React.useState(""); //채팅 입력 값
 
-    const { messages, sendMessage } =  useState('');
-    const [newMessage, setNewMessage] = React.useState(""); // Message to be sent
-  
-    // 기존의 채팅 내용을 담아두고 UI와 직접 연결되는 상태값
-    const [chatMonitor, setChatMonitor] = useState([]);
-    //서버에서 받은 갱신된(새로 추가된) 내용을 받는 상태값
-    const [recentChat, setRecentChat] = useState('');
-
-       
-    //입력 값 저장하는 상태값 
     const handleNewMessageChange = (event) => {
       setNewMessage(event.target.value);
     };
 
-    const handleSendMessage = () => {
+    const onSendMessage = () => {
       sendMessage(newMessage);
       setNewMessage("");
-      //enter
-
     };
+    
+    //뒤로가기 icon 
     const backClick = () => {
       window.history.back();
     }
 
-     // 서버에서 갱신된 내용(recentChat)을 받았을 때 로컬 채팅창에 추가
-     useEffect(() => {
-        recentChat.length > 0 && setChatMonitor([...chatMonitor, recentChat]);
-        setRecentChat('');
-        // 채팅값 초기화 
-    }, [recentChat]);
-
-
-    //  // 스크롤을 하단으로
-    // const scrollToBottom = () => {
-    //     document.getElementById('chatMonitor').scrollBy({ top: 100 });
-    // };
-    // // 이때 async, await 구문을 활용해서 아래 함수가 채팅방이 갱신되고 나서 실행되도록 설정
-    // useEffect(async () => {
-    //     (await recentChat.content?.length) > 0 &&
-    //     setChatMonitor([...chatMonitor, recentChat]);
-        
-
-    //     scrollToBottom();
-    //     setRecentChat('');
-    // }, [recentChat]);
-
-
     return (
       <div>
-        
-        <TopStyled>
-            <li onClick={backClick} style={{'color' : 'gray'}}>⬅</li>
-            <li style={{'margin-left' : '15px', 'font-weight' : 'bold'}}>{chatName}</li>
-        </TopStyled>
+        <Top> 
+          <TopStyled>
+              <li onClick={backClick} style={{'color' : 'gray'}}>⬅</li>
+              <li style={{'margin-left' : '15px', 'font-weight' : 'bold'}}>닉네임</li>
+              {/* <li style={{'margin-left' : '15px', 'font-weight' : 'bold'}}>{roomId}</li> */}
+          </TopStyled>
         <hr/>
+        </Top>
 
         <div>
-          <ol>
-            {/* {messages.map((message, i) => (
-              <li
-                key={i}
-                className={`message-item ${
-                  message.ownedByCurrentUser ? "my-message" : "received-message"
-                }`}
-              >
-                {message.body}
-              </li>
-            ))} */}
+        <ChatList>
+          {messages.map((msg, i) => {
+            msg.ownedByCurrentUser ? (
+              <div>
+                <div className="myChat">
+                <MyTime>{msg.timeStamp}</MyTime>
+                <span className="msg">{msg.body}</span> 
+                </div>
+              </div>
+            ) : (
+              <div>
+                <div className="anotherChat">
+                <span className="msg">{msg.body}</span>
+                <AnotherTime>{msg.timeStamp}</AnotherTime>
+                </div>
+              </div>
+            );
+          })}
+         </ChatList>
 
-          </ol>
+            <ChatList>
+              <Line>2021년 9월 6일</Line>
+              <div className="myChat">
+                <MyTime>2:40</MyTime>
+                <span className="msg">안녕하세요 !</span> 
+              </div>
+              <div className="anotherChat">
+                <span className="msg">안녕하세요</span>
+                <AnotherTime>11:20</AnotherTime>
+              </div>
+              <div className="anotherChat">
+                <span className="msg">어디서 만날까요?</span>
+                <AnotherTime>11:20</AnotherTime>
+              </div>
+              <div className="myChat">
+                <MyTime>2:40</MyTime>
+                <span className="msg">강남역으로 갈게요</span> 
+              </div>
+              <div className="anotherChat">
+                <span className="msg">안녕하세요</span>
+                <AnotherTime>11:20</AnotherTime>
+              </div>
+              <div className="myChat">
+                <MyTime>2:40</MyTime>
+                <span className="msg">안녕하세요 빌리고싶어요!</span> 
+              </div>
+              <div className="anotherChat">
+                <span className="msg">안녕하세요</span>
+                <AnotherTime>11:20</AnotherTime>
+              </div>
+              <div className="myChat">
+                <MyTime>2:40</MyTime>
+                <span className="msg">안녕하세요 빌리고싶어요!</span> 
+              </div>
+              <div className="anotherChat">
+                <span className="msg">안녕하세요</span>
+                <AnotherTime>11:20</AnotherTime>
+              </div>
+              <div className="myChat">
+                <MyTime>2:40</MyTime>
+                <span className="msg">안녕하세요 빌리고싶어요!</span> 
+              </div>
+              <div className="anotherChat">
+                <span className="msg">안녕하세요</span>
+                <AnotherTime>11:20</AnotherTime>
+              </div>
+              <div className="myChat">
+                <MyTime>2:40</MyTime>
+                <span className="msg">안녕하세요 빌리고싶어요!</span> 
+              </div>
+            </ChatList> 
+
         </div>
-
+        <Bottom>
+          <form onSubmit={onSendMessage}>
             <InputBox>
-            <InputStyled
+              <InputStyled
                 value={newMessage}
                 onChange={handleNewMessageChange}
-            />
-            <Button onClick={handleSendMessage}>
-            <img src={send} style={{width: '20px', height: 'auto'}}/>
-            </Button>
+              />
+              <Button>
+              <img src={send} style={{width: '20px', height: 'auto'}}/>
+              </Button>
             </InputBox>
+            </form>
+        </Bottom>
 
       </div>
     );

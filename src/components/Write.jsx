@@ -259,7 +259,7 @@ function Write(props) {
             }
               ).then( (res) => {
                 console.log(res);
-                //props.history.push('/BorrowBoard'); //메인 화면으로이동
+                //props.history.push('/'); //메인 화면으로이동
               })
               .catch( (error)=> {
                 console.log(error);
@@ -276,7 +276,7 @@ function Write(props) {
           }
             ).then( (res) => {
               console.log(res);
-              //props.history.push('/BorrowBoard'); //메인 화면으로이동
+              //props.history.push('/'); //메인 화면으로이동
             })
             .catch( (error)=> {
               console.log(error);
@@ -288,7 +288,7 @@ function Write(props) {
     <PageStyled>
         <form onSubmit={onSubmitWrite}>
         <TopStyled>
-            <li><a href="/BorrowBoard" style={{color: 'gray',  'font-size' : '13px', 'font-weight': 'bold'}}>취소</a></li>
+            <li><a href="/" style={{color: 'gray',  'font-size' : '13px', 'font-weight': 'bold'}}>취소</a></li>
             <li>게시글 쓰기</li>
             <li><button type="submit" style={{color: '#A352CC', border:'none', background: 'none', 'font-weight': 'bold', 'font-size' : '13px'}}>등록</button></li>
         </TopStyled>

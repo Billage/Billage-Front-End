@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+</head>
+<body>
+    <tbody>
+    <% posts.forEach((post) => { %>
+        <tr>
+            <td>
+                <a href="/post/<%= post.id %>"><div><%= post.title %></div></a>
+                <div>닉네임: <%= post.User.nick %></div>
+            </td>
+            <td>
+                <div><%= post.createdAt %></div>
+            </td>
+        </tr>
+        <br>
+    <% }) %>
+    </tbody>
+    <a href="post/borrow"><button>빌려주세요 작성하기</button></a><br>
+    <a href="post/lend"><button>빌려줄게요 작성하기</button></a>
+</body>
+</html>
