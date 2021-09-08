@@ -6,6 +6,7 @@ import socketio from 'socket.io-client';
 import send from '../components/images/send.png';
 import useChat from "../useChat";
 import moment from "moment";
+import { message } from 'antd';
 
 const TopStyled = styled.ul`
     display: flex;
@@ -26,6 +27,7 @@ const ChatList = styled.div`
   margin-left: 15px;
   margin-right: 15px;
   overflow-y: auto;
+
 `;
 
 const msessage = styled.span`
@@ -143,8 +145,10 @@ const Chatting = (props) => {
         </Top>
 
         <div>
+
         <ChatList>
           {messages.map((msg, i) => {
+            
             msg.ownedByCurrentUser ? (
               <div>
                 <div className="myChat">
@@ -163,11 +167,11 @@ const Chatting = (props) => {
           })}
          </ChatList>
 
-            <ChatList>
+            {/* <ChatList>
               <Line>2021년 9월 6일</Line>
               <div className="myChat">
                 <MyTime>2:40</MyTime>
-                <span className="msg">안녕하세요 !</span> 
+                <span className="msg">안녕하세요 빌리고 싶어요!</span> 
               </div>
               <div className="anotherChat">
                 <span className="msg">안녕하세요</span>
@@ -181,39 +185,7 @@ const Chatting = (props) => {
                 <MyTime>2:40</MyTime>
                 <span className="msg">강남역으로 갈게요</span> 
               </div>
-              <div className="anotherChat">
-                <span className="msg">안녕하세요</span>
-                <AnotherTime>11:20</AnotherTime>
-              </div>
-              <div className="myChat">
-                <MyTime>2:40</MyTime>
-                <span className="msg">안녕하세요 빌리고싶어요!</span> 
-              </div>
-              <div className="anotherChat">
-                <span className="msg">안녕하세요</span>
-                <AnotherTime>11:20</AnotherTime>
-              </div>
-              <div className="myChat">
-                <MyTime>2:40</MyTime>
-                <span className="msg">안녕하세요 빌리고싶어요!</span> 
-              </div>
-              <div className="anotherChat">
-                <span className="msg">안녕하세요</span>
-                <AnotherTime>11:20</AnotherTime>
-              </div>
-              <div className="myChat">
-                <MyTime>2:40</MyTime>
-                <span className="msg">안녕하세요 빌리고싶어요!</span> 
-              </div>
-              <div className="anotherChat">
-                <span className="msg">안녕하세요</span>
-                <AnotherTime>11:20</AnotherTime>
-              </div>
-              <div className="myChat">
-                <MyTime>2:40</MyTime>
-                <span className="msg">안녕하세요 빌리고싶어요!</span> 
-              </div>
-            </ChatList> 
+            </ChatList>  */}
 
         </div>
         <Bottom>

@@ -146,8 +146,21 @@ const ImgTurn=styled.div`
     }//슬라이더 왼쪽 버튼 누르면, 처음 인덱스가 아닌지 확인후 이전 인덱스의 이미지 가져옴
     };
 
+    //채팅 보내기 버튼 눌렀을 때 
     const onClickChat = () => {
         window.location.href = "/Chatting";
+
+        //닉네임 보내기 
+        axios.post('url', {
+            nick: postInfo.user.nick,
+        }
+        ).then( (res) => {
+            console.log(res);
+        })
+        .catch( (error)=> {
+            console.log(error);
+        });
+
     }
     
     return(

@@ -17,7 +17,7 @@ const useChat = (roomId) => {
         socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
         const incomingMessage = {
             ...message,
-            ownedByCurrentUser: message.senderId === socketRef.current.id,
+            ownedByCurrentUser: message.senderId === socketRef.current.id,  //채팅 보낸사람이 자기 자신
         };
         setMessages((messages) => [...messages, incomingMessage]);
         });
@@ -31,10 +31,8 @@ const useChat = (roomId) => {
             socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
             body: messageBody,
             senderId: socketRef.current.id,
-            // timeStamp: new Date().toLocaleTimeString(),
-            // timeStamp : moment().format('hh:mm'),
             timeStamp : moment().format('YYYY-MM-DD hh:mm'),
-            date : moment().format('YYYY년 MM월 DD일'), //보낸 날짜
+            date : moment().format('YYYY년 MM월 DD일'), 
         });
     };
 
