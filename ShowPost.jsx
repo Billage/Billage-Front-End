@@ -1,6 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
 import axios from 'axios';
+import 'antd/dist/antd.css';
+import { Tabs, Button } from 'antd';
+
+const { TabPane } = Tabs;
+
 // 이미지 슬라이더 감싸는 div
 const ImgWrapper=styled.div` 
     // overflow:hidden;
@@ -40,6 +45,8 @@ const PostHeader=styled.div`
     border-bottom: solid 2px #E5E5E5;
     margin:10px 0 5px 0;
     padding: 2px;
+    position:relative;
+   
 `;
 
 const PostFooter=styled.div`
@@ -76,6 +83,8 @@ const HighLight=styled.div`
     color:#A352CC;
     font-size:20px;
     font-weight:bold;
+    
+    background-color:white;
 `;
 const PostButton=styled.button`
     border:none;
@@ -103,12 +112,33 @@ const ImgTurn=styled.div`
     opacity:0.5;
     text-align:center;
 `;
+const ReviewButton=styled(Button)`
+    background-color:#ffffff;
+    border:1px solid #E5E5E5;
+    color:#A352CC;
+    &:hover, &:focus {
+        color:#ffffff;
+        background-color:#A352CC;
+        border:1px solid #A352CC;
+    }
+   
+  
+`;
+const TabItem=styled(TabPane)`
+    
+`;
+const StyledTab=styled(Tabs)`
+    size:large;
+   
+    
+`;
+
     const ShowPost=({postId})=>{
     const [imgArr,setImgArr]=useState([]); //이미지를 넣는 배열 
     const [postInfo,setPostInfo]=useState(''); //이미지 제외 게시글 정보
     let [imgIdx,setImgIdx]=useState(0); //이미지 슬라이더에서 사진 교체할 때 사용하는 인덱스 넘버
     const [curUser,setCurUser]=useState('') //현재 계정에 접속해 서비스를 사용하는 사용자
-    const [temp,setTemp]=useState('안녕하세요 \n 빔프로젝터 빌려가실 분을 찾습니다 ')
+    const [temp,setTemp]=useState('안녕하세요 \n 빔프로젝터 빌려가실 분을 찾습니다 안녕하세요 \n 빔프로젝터 빌려가실 분을 찾습니다 안녕하세요 \n 빔프로젝터 빌려가실 분을 찾습니다안녕하세요 \n 빔프로젝터 빌려가실 분을 찾습니다안녕하세요 \n 빔프로젝터 빌려가실 분을 찾습니다안녕하세요 \n 빔프로젝터 빌려가실 분을 찾습니다안녕하세요 \n 빔프로젝터 빌려가실 분을 찾습니다안녕하세요 \n 빔프로젝터 빌려가실 분을 찾습니다안녕하세요 \n 빔프로젝터 빌려가실 분을 찾습니다 안녕하세요 \n 빔프로젝터 빌려가실 분을 찾습니다 안녕하세요 \n 빔프로젝터 빌려가실 분을 찾습니다  안녕하세요 \n 빔프로젝터 빌려가실 분을 찾습니다 안녕하세요 \n 빔프로젝터 빌려가실 분을 찾습니다 ')
     // const getPostContent=(postId)=>{
     // return axios.get(url, { //통신을 위한 url을 적어주세요.
     //         params: {
@@ -178,7 +208,7 @@ const ImgTurn=styled.div`
         );
     });
     return(
-        <div>
+        <div style={{background: 'white'}}>
         <ImgWrapper arrLength={imgArr.length}>
         {/* 이미지가 하나라도 있으면, 아래 wrapper 안의 코드가 보이고 이미지가 하나도 없으면 회색 바탕 */}
         {imgArr.length!==0&&<PostImg src={imgArr[imgIdx].url} alt={imgArr[imgIdx].name}/>}
@@ -190,12 +220,12 @@ const ImgTurn=styled.div`
         <PostHeader>
             <div>
             <div style={{fontWeight:'bold', fontSize:'14px'}}>
-                {postInfo.user.nick} 
-                {/* 글쓴이 닉네임 */}
+                {/* {postInfo.user.nick}  */}
+                글쓴이 닉네임
                 </div>
             <div style={{color:'#7D7D7D', fontSize:'11px'}}>
-                {postInfo.user.showAddress} 
-                {/* 글쓴이 주소 */}
+                {/* {postInfo.user.showAddress}  */}
+                글쓴이 주소
                 </div>
             </div>
             <HighLight> 
@@ -203,34 +233,28 @@ const ImgTurn=styled.div`
             </HighLight> 
             {/* 대여기간 */}
         </PostHeader>
+       
+        <StyledTab type={{line:'300px'}} defaultActiveKey="1" centered>
+        <TabItem tab="본문 내용" key="1">
         <PostTitle>
         <div style={{fontWeight:'bold', fontSize:'18px', marginTop:'2px'}}>
-            {postInfo.title} 
-            {/* 게시글 제목 */} 
+            {/* {postInfo.title}  */}
+            게시글 제목 
         </div>
         {/* 현재 계정 접속자와 글쓴이 id 가 같으면 수정/삭제 버튼이 보입니다 */}
-        {postInfo.user.id===curUser.id&&
+        {/* {postInfo.user.id===curUser.id&& */}
         <div>
         <PostButton>수정</PostButton>
         <PostButton>삭제</PostButton>
         </div>
-        }
+        {/* } */}
         </PostTitle>
             <div style={{color:'#7D7D7D',fontSize:'12px', margin:'2px 0 0 2px'}}>{postInfo.createAt}</div> {/* 글쓴 날짜 및 시각 */}
         <PostContent>  
         {/* 게시글 보이는 곳*/} 
         {/* 게시글 줄 띄어쓰기되는 코드입니다 */}
         {/* 관련사항은 링크 참조해주세요 : https://coding-hwije.tistory.com/58 */}
-        
-        {postInfo.body.split("\n").map((line) => { //postInfo.body: 글내용
-            return (
-              <span>
-                {line}
-                <br />
-              </span>
-            );
-          })}
-           {/* {temp.split("\n").map((line) => { //postInfo.body: 글내용
+     {/* {postInfo.body.split("\n").map((line) => { //postInfo.body: 글내용
             return (
               <span>
                 {line}
@@ -238,16 +262,38 @@ const ImgTurn=styled.div`
               </span>
             );
           })} */}
+           {temp.split("\n").map((line) => { //postInfo.body: 글내용
+            return (
+              <span>
+                {line}
+                <br />
+              </span>
+            );
+          })}
         {/* {postInfo.body}  */}
         </PostContent>
+        </TabItem>
+        <TabItem tab="대여 후기" key="2">
+        <PostContent>  
+        <ReviewButton style={{ position:'absolute',right:'5px'}}type="primary">후기 작성</ReviewButton>
+        </PostContent>
+        </TabItem>
+  
+         </StyledTab>
+        
         <PostFooter>
-            <HighLight>
-                {numberWithCommas(postInfo.price)}
+            <HighLight style={{background:'white'}}>
+                {/* {numberWithCommas(postInfo.price)} */}
+                {numberWithCommas(10000)}
                 원</HighLight> {/* 제품 가격*/}
             <ChatButton onClick={onClickChat}>채팅 보내기</ChatButton>
         </PostFooter>
+      
+        
         </PostComponent>
+        
         </div>
     );
 };
 export default ShowPost;
+export {ReviewButton, PostHeader};
