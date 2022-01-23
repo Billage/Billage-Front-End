@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+/* eslint-disable jsx-a11y/alt-text */
+import React, { useState, useRef, useEffect } from 'react'
 import styled from "styled-components";
 import axios from 'axios';
 import DatePicker from "react-datepicker";
@@ -13,7 +14,6 @@ display:flex;
 flex-direction:column;
 // align-items:center;
 `;
-
 const InputStyled = styled.input`
         margin: 0px 20px;
         border: none;
@@ -21,16 +21,15 @@ const InputStyled = styled.input`
         display: flex;
         height: 50px;
         width: 90%;
-   `;
-
+  `;
 const TextStyled = styled.textarea`
         margin: 0px 20px;
         border: none;
         outline: none;
         display: flex;
-        height: 300px;          //자동 크기 조절 하기
+        height: 300px;
         width: 90%;
-   `;
+  `;
 const TopStyled=styled.ul` 
     height:25px;
     display:flex;
@@ -42,9 +41,7 @@ const TopStyled=styled.ul`
     color: black;
     font-size:15px;
     font-weight:bold;
-   
-   `;
-
+  `;
 const BoardStyled = styled.ul`
     display:flex;
     align-items:center;
@@ -53,7 +50,6 @@ const BoardStyled = styled.ul`
     margin:0;
     padding:0 20px 0 20px;
 `;
-
 //시작일, 종료일 달력 스타일
 const DatePickerStyled = styled(DatePicker)`
     text-align: center;
@@ -62,7 +58,6 @@ const DatePickerStyled = styled(DatePicker)`
     font-size: 15px;
     border-radius: 20px;
     border: 1px solid gray;
-
 `;
 const DateTitle = styled.div`
     color: gray;
@@ -75,7 +70,6 @@ const DivStyled = styled.div`
     display: flex;
     justify-content:space-evenly;
 `;
-
 const MainContainer = styled.div`
   display: flex;
   align-items: center;
@@ -95,7 +89,6 @@ const Scroll = styled.div`
   white-space:nowrap;
   ::-webkit-scrollbar { display: none; }
 `;
-
 const InitialBox = styled.div`
     width: 60px;
     height: 60px;
@@ -106,12 +99,10 @@ const InitialBox = styled.div`
     align-items: center;
     flex-direction: column;
 `;
-
 const ImgAreaContainer = styled.div`
   display: flex;
   align-items: center;
 `;
-
 const ImgArea = styled.div`
   width: 60px;
   height: 60px;
@@ -144,10 +135,7 @@ const DeleteButton = styled.button`
   margin-top: -46px;
 `;
 
-
 function Write(props) {
-
-    const [id, setId] = useState(0);
     const [title, setTitle] = useState(""); //제목
     const [price, setPrice] = useState(""); //가격
 
@@ -158,77 +146,63 @@ function Write(props) {
     const [fontStyle2, setFontStyle2]=useState({'background-color': "transparent", color: "lightgray"});
 
     const [menu, setMenu] = useState(true);   
-    const [menu1, setMenu1] = useState(true);   //빌려줄게요
-    const [menu2, setMenu2] = useState(false);  //빌려주세요
-    
-    //이미지 업로드 
-    const [ img, setImg ] = useState([]);
-    const [ previewImg, setPreviewImg ] = useState([]);
+    const [menu1, setMenu1] = useState(true); //빌려줄게요
+    const [menu2, setMenu2] = useState(false); //빌려주세요
 
-    //이미지 삽입 
-    const insertImg = (e) => {
-        let reader = new FileReader();
+    // 이미지 업로드 버튼 클릭 시, 서버로 이미지 폼 데이터 전송 --> 서버에서 이미지의 저장경로를 보내줌(미리보기에 사용가능[?])
+    // 게시글 업로드 클릭 시, 이미지의 저장경로를 다시 서버로 전송
     
-        if(e.target.files[0]) {
-            if(img.length > 11){
-                alert('사진은 10개까지만 업로드 가능합니다');                
+    const [previewImage, setPreviewImage] = useState([]);
+    const imagesRef = useRef();
+    const newFileList = [];
+
+    //업로드 이미지 미리보기
+    const multipleImageHandler = e => {
+        e.preventDefault();
+        // var newFileList = [];
+        const uploadedFile = e.target.files;
+        
+        for (var i = 0; i < uploadedFile.length; i++) {
+          let reader = new FileReader();
+          let file = uploadedFile[i];
+          
+
+          if(e.target.files[0]) {
+            if(uploadedFile.length > 10){
+              alert('사진은 10개까지 업로드 가능합니다');
+              break;
             }
             else {
-                reader.readAsDataURL(e.target.files[0]);
-                setImg([...img, e.target.files[0]]);
+              reader.readAsDataURL(file);// 이미지를 특정 Blob로 읽어서 저장 
+
+             //파일상태 업데이트 
+              reader.onloadend = () => {
+
+                  newFileList.push({
+                    file: file,
+                    previewURL: reader.result
+                  })
+              }
+
+              //업로드 다 된 후에 미리보기 
+              if (i === uploadedFile.length - 1) {
+                setTimeout(() => setPreviewImage(previewImg => previewImg.concat(newFileList)), 1000);
+              }
             }
-        }
-    
-        reader.onloadend = () => {
-          const previewImgUrl = reader.result;
-    
-          if(previewImgUrl) {
-            setPreviewImg([...previewImg, previewImgUrl]);
           }
+  
         }
-    
-      }
-    //이미지 삭제
-      const deleteImg = (index) => {
-        const imgArr = img.filter((el, idx) => idx !== index);
-        const imgNameArr = previewImg.filter((el, idx) => idx !== index);
-    
-        setImg([...imgArr]);
-        setPreviewImg([...imgNameArr]);
-      }
-    
-      //이미지 미리보기 
-      const getPreviewImg = () => {
-        if(img === null || img.length === 0) {
-          return (
-            <ImgAreaContainer>
-              <ImgArea>
-                <Img src='https://ifh.cc/g/F7gnxH.gif' alt='이미지없음' />
-              </ImgArea>
-    
-            </ImgAreaContainer>
-          )
-        } else {
-          return img.map((el, index) => {
-            // const { name } = el
-            const delOnClik = (e) => {
-                e.preventDefault();
-                deleteImg(index);
-            }
-            return (
-              <ImgAreaContainer key={index}>
-                <ImgArea>
-                  <Img src={previewImg[index]}/>
-                </ImgArea>
-                <DeleteButton onClick={delOnClik}><img src={del_img} style={{width: '11px'}}/></DeleteButton>
-              </ImgAreaContainer>
-            )
-          })
-        }
-      }
+    }
+    //이미지 삭제 
+    const removeImageHandler = (id) => {
+        const remainingImg = previewImage.filter((item, i) => i !== id )
+        setPreviewImage(remainingImg)
+
+    }
 
     //글 등록 버튼 클릭 시  
     const onSubmitWrite = (e) => { 
+
         e.preventDefault();
             if(!title){
                 alert('제목을 입력해주세요');
@@ -242,49 +216,67 @@ function Write(props) {
                 alert('내용을 입력해주세요');
                 return;
             }
-
         //빌려줄게요 게시판에 글쓰기
-        if(menu1 == true) {
-              let images = [];
-              for (let i = 0; i < previewImg.length; i++) {
-                images.push(previewImg[i]);
-              }
+        if(menu1 === true) {
 
-            const data = {title : title, price : price, startDate : startDate, endDate : endDate, content : content, img: previewImg, date:  moment().format('YYYY.MM.DD HH:mm') };
-            // console.log(data);
-    
-            axios.post('url', {
-                method: 'POST',
-                data : data
-            }
-              ).then( (res) => {
-                console.log(res);
-                //props.history.push('/'); //메인 화면으로이동
+          e.preventDefault();
+          // setPreviewImage([]); 
+          imagesRef.current.value = '';
+      
+          const formData = new FormData();
+          const config = {
+                headers : {'content-type': 'multipart/form-data'}
+          }
+          
+          for(var i=0; i<previewImage.length; i++){
+            formData.append('img'+i, previewImage[i].file);   //이미지 정보 
+          }
+          // formData.append('imgUrl', previewImage); //이미지 url
+          formData.append('title', title);
+          formData.append('price', price);
+          formData.append('body', content);
+          formData.append('startDate', startDate);
+          formData.append('endDate', endDate);
+          formData.append('date', moment().format('YYYY.MM.DD HH:mm'));
+
+//        test
+          for(var i=0; i< previewImage.length;i++) {
+            console.log('img'+i+'_test', previewImage[i].file);
+          }
+
+           return axios.post('http://localhost:7000/post/write/lend', formData,
+            { withCredentials: true })
+              .then( (res) => {
+                props.history.push('/'); //메인 화면으로이동
               })
               .catch( (error)=> {
                 console.log(error);
-              });
+              }, config);
         }
-        //빌려주세요 게시판에 글쓰기
-        if(menu2 == true) {
-          const data = {title : title, price : price, startDate : startDate, endDate : endDate, content : content, date:  moment().format('YYYY.MM.DD HH:mm') };
-          // console.log(data);
 
-          axios.post('url', {
-              method: 'POST',
-              data : data
-          }
-            ).then( (res) => {
-              console.log(res);
-              //props.history.push('/'); //메인 화면으로이동
+        //빌려주세요 게시판에 글쓰기
+        if(menu2 === true) {
+          const data = {
+            title : title,
+            body : content,  
+            price : price, 
+            start_date : startDate, 
+            end_date : endDate,
+            date: moment().format('YYYY.MM.DD HH:mm')
+          };
+          console.log(data);
+          axios.post('http://localhost:7000/post/write/borrow', data,
+            { withCredentials: true })
+            .then( (res) => {
+              props.history.push('/'); //메인 화면으로이동
             })
             .catch( (error)=> {
               console.log(error);
             });
           }
-     }
+    }
 
-   return (
+  return (
     <PageStyled>
         <form onSubmit={onSubmitWrite}>
         <TopStyled>
@@ -295,29 +287,39 @@ function Write(props) {
         
         <hr/>
         <BoardStyled>
-         <li><a href="/" onClick={(e) => {e.preventDefault(); setMenu(true); setMenu1(true); setMenu2(false); setFontStyle1({'background': "linear-gradient(to top, #FFE400 50%, transparent 50%)", color: "black"}); setFontStyle2({'background-color': "transparent", color: "lightgray"})}} style={fontStyle1}>빌려줄게요</a></li>
-        <li><a href="/" onClick={(e) => {e.preventDefault(); setMenu(false); setMenu1(false); setMenu2(true); setFontStyle1({'background-color': "transparent", color: "lightgray"}); setFontStyle2({'background': "linear-gradient(to top, #FFE400 50%, transparent 50%)", color: "black"})}} style={fontStyle2}>빌려주세요</a></li>
+          <li><a href="/" onClick={(e) => {e.preventDefault(); setMenu(true); setMenu1(true); setMenu2(false); setFontStyle1({'background': "linear-gradient(to top, #FFE400 50%, transparent 50%)", color: "black"}); setFontStyle2({'background-color': "transparent", color: "lightgray"})}} style={fontStyle1}>빌려줄게요</a></li>
+          <li><a href="/" onClick={(e) => {e.preventDefault(); setMenu(false); setMenu1(false); setMenu2(true); setFontStyle1({'background-color': "transparent", color: "lightgray"}); setFontStyle2({'background': "linear-gradient(to top, #FFE400 50%, transparent 50%)", color: "black"})}} style={fontStyle2}>빌려주세요</a></li>
         </BoardStyled>
         
         { menu ? <div>
         <hr/>
         <MainContainer>
-            <form encType='multipart/form-data'>
+
             <label htmlFor='file'>  
-            <InitialBox>
-                <img src='https://ifh.cc/g/219dfc.png' alt="camera_img" style={{width: '30px', 'margin-bottom': '-13px', 'padding-top' :'10px'}}></img>
-                <p style={{color: 'gray', 'font-size' : '12px'}}>{img.length}/10</p>
-            </InitialBox>
-            </label>
-            <FileInput type='file' accept="image/*" id='file' onChange={(e) => insertImg(e)}/>
-            </form>
-            <Scroll>
-            {getPreviewImg()} {/*사진 미리보기*/}
+             <InitialBox>
+                 <img src='https://ifh.cc/g/219dfc.png' alt="camera_img" style={{width: '30px', 'margin-bottom': '-13px', 'padding-top' :'10px'}}></img>
+                 <p style={{color: 'gray', 'font-size' : '12px'}}>{previewImage.length}/10</p>
+             </InitialBox>
+             </label>
+             <FileInput type="file" id="file" multiple ref={imagesRef} accept="image/*" onChange={multipleImageHandler} style={{ visibility: "hidden" }}/>
+ 
+            <Scroll>    
+              
+            {previewImage.map((file, i) => 
+             <ImgAreaContainer key={i} className="content">
+                <ImgArea><img src={file.previewURL} style={{width: '60px', height: '60px', 'white-space': 'nowrap'}} alt='profile_preview' /></ImgArea>
+                <DeleteButton onClick={(e) => {e.preventDefault(); removeImageHandler(i)} } ><img src={del_img} style={{width: '11px'}}/></DeleteButton>
+
+            </ImgAreaContainer>
+            )}
+               
             </Scroll>
+
+   
         </MainContainer>
     
         </div> : <div/> }
-       
+      
 
         <hr/>
           <InputStyled
@@ -362,13 +364,13 @@ function Write(props) {
             />
             </div>
           </DivStyled>
-           <hr/>
-           <TextStyled
+            <hr/>
+          <TextStyled
                 name="content"
                 placeholder="내용"
                 onChange={(event) => setContent(event.target.value)} 
                 />
-       </form>
+        </form>
     </PageStyled>
     )
 }

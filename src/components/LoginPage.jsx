@@ -21,6 +21,18 @@ const Center = styled.div`
   justify-content: center;
 
 `;
+
+//Id, Pw input창 
+const Input=styled.input`
+    // border-radius: 30px;
+    border-width: thin;
+    border-color: #E5E5E5;
+    border-style: solid; 
+    width:250px;
+    height:40px;
+`;
+
+
 function LoginPage(props) {
 
     const [id, setId] = useState("");
@@ -116,12 +128,13 @@ function LoginPage(props) {
            <Logo></Logo>
             <Center>
               <form onSubmit={onSubmitLogin}>
-                  <input type="email" placeholder='빌리지 ID' style={inputStyle} value={id} onChange={onIdHandler}/><br/>
-                  <input type="password" placeholder='비밀번호' style={inputStyle} value={password} onChange={onPasswordHandler}/>
+                  <Input type="email" placeholder='빌리지 ID' style={inputStyle} value={id} onChange={onIdHandler}/><br/>
+                  <Input type="password" placeholder='비밀번호' style={inputStyle} value={password} onChange={onPasswordHandler}/>
                   <br/>
                   <Styled>
                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                      <label><input type="checkbox" name="save_id" value="save_id" checked={saveId} onChange={handleOnChange}/>ID 저장</label>
+                      <label style={{color: '#878787'}}><input type="checkbox" name="save_id" value="save_id" checked={saveId} onChange={handleOnChange}/>ID 저장</label>
+                      <a href="/" style={{marginLeft : '160px'}}>ID/PW 찾기</a>
                       <a href="/SignUp">회원가입</a>
                     </div>
                   </Styled>
@@ -130,7 +143,15 @@ function LoginPage(props) {
                   <button style={{border: 'none', background:'none'}} type="submit"><LoginBtn title="빌리지"></LoginBtn></button>
                   <br/>
                   <button style={{border: 'none', background:'none'}} onClick={kakaoSubmit} ><LoginBtn title="카카오톡"></LoginBtn></button>
+              
+
+                {/* <div style={{marginTop: '10px'}}>
+                  <a href="/SignUp" style={{margin: '10px'}}>회원가입 </a>  
+                  <a href="/">아이디/비밀번호 찾기</a>             
+                </div> */}
+
               </form>
+              
             </Center>
         </div>
     )

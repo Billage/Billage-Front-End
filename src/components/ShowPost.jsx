@@ -1,6 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
 import axios from 'axios';
+import { useHistory, useParams } from 'react-router';
+import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import {HeartOutlined, HeartFilled} from '@ant-design/icons';
+import LikeButton from './LikeButton';
+
 // 이미지 슬라이더 감싸는 div
 const ImgWrapper=styled.div` 
     // overflow:hidden;
@@ -52,6 +58,7 @@ const PostFooter=styled.div`
     bottom:0;
     width:90%;
 `;
+
 const PostComponent=styled.div`
     width:90%;
     height:50%;
@@ -103,6 +110,8 @@ const ImgTurn=styled.div`
     opacity:0.5;
     text-align:center;
 `;
+
+
     const ShowPost=({postId})=>{
     const [imgArr,setImgArr]=useState([{url:'img/빔프로젝터.jpg', name:'빔 프로젝터'}, {url:'img/바다.jpeg', name:'빔 프로젝터'}]); //이미지를 넣는 배열 
     const [postInfo,setPostInfo]=useState(''); //이미지 제외 게시글 정보
@@ -123,10 +132,10 @@ const ImgTurn=styled.div`
     // };
     // useEffect((postId) => {  //페이지가 실행될 때 한 번만 실행된다
     // axios.all([getPostContent(postId),getPostImg(postId)]) // axios.all로 여러 개의 request를 보내고
-    // .then(axios.spread((contentResp, imgResp) => { // response를 spread로 받는다
-    //     //contentResp: 이미지를 제외한 게시물 정보 데이터 / imgResp: 이미지 데이터
+    // .then(axios.spread((contentResp) => { // response를 spread로 받는다
+    //     //contentResp: 이미지를 제외한 게시물 정보 데이터 
     //     setPostInfo(contentResp); 
-    //     setImgArr(imgResp);
+
     // })).catch((error) => {
     //     console.error(error)
     // })
@@ -146,6 +155,7 @@ const ImgTurn=styled.div`
     }//슬라이더 왼쪽 버튼 누르면, 처음 인덱스가 아닌지 확인후 이전 인덱스의 이미지 가져옴
     };
 
+
     //채팅 보내기 버튼 눌렀을 때 
     const onClickChat = () => {
         window.location.href = "/Chatting";
@@ -162,6 +172,27 @@ const ImgTurn=styled.div`
         });
 
     }
+
+    //찜 버튼 
+    const onLikeSubmit = (check) => {
+    	console.log(check);
+       let ans = {
+        postId: postId,
+        // nick: postInfo.user.nick,
+        check: check
+        }
+        axios.post('url', ans)
+            //성공
+            .then((res)=>{
+                console.log(res);
+            })
+            //에러
+            .catch(error=>{
+                console.log(error);
+            });
+
+    }
+  
     
     return(
         <div>
@@ -176,39 +207,49 @@ const ImgTurn=styled.div`
         <PostHeader>
             <div>
             <div style={{fontWeight:'bold', fontSize:'14px'}}>
-                {postInfo.user.nick} 
+                {/* {postInfo.user.nick}  */}
                 {/* 글쓴이 닉네임 */}
                 </div>
             <div style={{color:'#7D7D7D', fontSize:'11px'}}>
-                {postInfo.user.showAddress} 
+                {/* {postInfo.user.showAddress}  */}
                 {/* 글쓴이 주소 */}
                 </div>
             </div>
             <HighLight> 
-                {postInfo.startDate} - {postInfo.endDate}
+                {/* {postInfo.startDate} - {postInfo.endDate} */}
             </HighLight> 대여기간
         </PostHeader>
         <PostTitle>
         <div style={{fontWeight:'bold', fontSize:'18px', marginTop:'2px'}}>
-            {postInfo.title} 
+            {/* {postInfo.title}  */}
             {/* 게시글 제목 */} 
             </div>
         <div>
-        <PostButton>수정</PostButton>
+   
+        <Link to={`/Update/${postInfo.id}`}><PostButton>수정</PostButton></Link>
+        {/* <Link to={`/Update/1`}><PostButton>수정</PostButton></Link> */}
+        
         <PostButton>삭제</PostButton>
         </div>
         </PostTitle>
             <div style={{color:'#7D7D7D',fontSize:'12px', margin:'2px 0 0 2px'}}>{postInfo.createAt}</div> {/* 글쓴 날짜 및 시각 */}
         <PostContent>  
         {/* 게시글 보이는 곳*/} 
-        {postInfo.body} 
+        {/* {postInfo.body}  */}
         </PostContent>
         <PostFooter>
             <HighLight>
-                {postInfo.price}
-                {numberWithCommas(postInfo.price)}
+                {/* {postInfo.price} */}
+                {/* {numberWithCommas(postInfo.price)} */}
                 원</HighLight> {/* 제품 가격*/}
+
+            <div style={{'display':'flex', 'marginTop':'5px'}}>
+            {/* 게시글 찜 */}
+            <LikeButton onSubmit={onLikeSubmit}/>
+
+            {/* 채팅 */}
             <ChatButton onClick={onClickChat}>채팅 보내기</ChatButton>
+            </div>
         </PostFooter>
         </PostComponent>
         </div>

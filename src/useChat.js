@@ -25,6 +25,7 @@ const useChat = (roomId) => {
         return () => {
         socketRef.current.disconnect();
         };
+        
     }, [roomId]);
 
     const sendMessage = (messageBody) => {

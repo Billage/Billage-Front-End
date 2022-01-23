@@ -17,17 +17,17 @@ import Chatting from './components/Chatting';
 import ShowPost from './components/ShowPost';
 import MainBoards from './components/MainBoards';
 import BoardNav from './components/BoardNav';
-
-// const Page = styled.html` 
-// text-align: center;
-//   `;
-
+import Update from './components/Update';
+import Scrap from './components/Scrap';
+import FindId from './components/FindId';
+import FindPw from './components/FindPw';
+import Quit from './components/Quit';
 function App() {
   return (
     
     <Router>
       <div>
-        {/* <Page> */}
+
         <Switch>
         <Route exact path="/SignUp" component={SignUp} />
         <Route exact path="/SignUp_kakao" component={SignUp_kakao} />
@@ -35,7 +35,12 @@ function App() {
           <Route exact path="/Write" component={Write}/>
           <Route exact path="/Chatting" component={Chatting}/>
           <Route exact path="/ShowPost" component={ShowPost}/>
+          <Route exact path="/Update" component={Update}/>
           <Route exact path="/" component={MainBoards}/>
+          <Route exact path="/Scrap" component={Scrap}/>
+          <Route exact path="/FindId" component={FindId}/>
+          <Route exact path="/FindPw" component={FindPw}/>
+          <Route exact path="/Quit" component={Quit}/>
         </Switch>
 
         {/* </Page> */}

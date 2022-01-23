@@ -144,6 +144,7 @@ const SignUp=()=>{
         if(isModal) setModal(false);
         else setModal(true);
     };
+
     const onClickChk=(e)=>{
         e.preventDefault();
         if(e.target.value==='email'){ //이메일 정보 받아오는 곳

@@ -147,8 +147,7 @@ const Chatting = (props) => {
         <div>
 
         <ChatList>
-          {messages.map((msg, i) => {
-            
+          {messages.map((msg, i) => {   
             msg.ownedByCurrentUser ? (
               <div>
                 <div className="myChat">
