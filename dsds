@@ -1,0 +1,71 @@
+[33mcommit 267ae77a6d70b1c0d800d00c96951570da82a907[m[33m ([m[1;36mHEAD -> [m[1;32mFindId/FindPw[m[33m)[m
+Author: shin-sj <sujung5092@gmail.com>
+Date:   Mon Jan 24 02:04:31 2022 +0900
+
+    findId/Pw
+
+[33mcommit 230f436fde537c6fe8b6e742872e8c0f6efdb1a0[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/FindId/FindPw[m[33m, [m[1;32mmain[m[33m, [m[1;32mFindId/Pw[m[33m)[m
+Author: shin-sj <sujung5092@gmail.com>
+Date:   Wed Sep 8 20:28:11 2021 +0900
+
+    ShowPost, ChatStyle.css 수정
+
+[33mcommit a1fedb885147975fc04bb9400f0e7f5c7cafb98e[m
+Author: shin-sj <sujung5092@gmail.com>
+Date:   Tue Sep 7 22:46:07 2021 +0900
+
+    .
+
+[33mcommit df1cc177b292d1cc938c6b992ecb11ccc0c56737[m[33m ([m[1;32mwrite[m[33m, [m[1;32mmain+board-page[m[33m)[m
+Author: shin-sj <sujung5092@gmail.com>
+Date:   Sun Sep 5 21:54:36 2021 +0900
+
+    글 등록 페이지
+
+[33mcommit 5bee198dbf4bc360b1fe01e0d764d824c84a0be3[m
+Author: shin-sj <sujung5092@gmail.com>
+Date:   Wed Aug 25 22:58:09 2021 +0900
+
+    상단 고정
+
+[33mcommit 10f18d7fbfdb160fd720e3b2d784ed652a6ad4b4[m
+Author: shin-sj <sujung5092@gmail.com>
+Date:   Sun Aug 22 02:33:20 2021 +0900
+
+    게시판 통일
+
+[33mcommit ad3788b8d4561a17e2319739bbf6e6d0f55e9223[m[33m ([m[1;32mlogin[m[33m)[m
+Author: shin-sj <sujung5092@gmail.com>
+Date:   Wed Aug 11 17:50:15 2021 +0900
+
+    빌려줄게요 게시판 초기
+
+[33mcommit 5937f12f81104c8deab7cee7b46b1d9ba084390b[m[33m ([m[1;31morigin/login[m[33m)[m
+Author: shin-sj <sujung5092@gmail.com>
+Date:   Wed Aug 11 17:36:58 2021 +0900
+
+    로그인 페이지 수정
+
+[33mcommit f7ac573cfebdd952dc8d400b5710d4b9bec4b360[m
+Author: shin-sj <71260043+shin-sj@users.noreply.github.com>
+Date:   Wed Aug 11 14:57:16 2021 +0900
+
+    Update README.md
+
+[33mcommit 9940185683deac955d51fbe284bd10cf108736ae[m
+Author: shin-sj <71260043+shin-sj@users.noreply.github.com>
+Date:   Wed Aug 11 14:49:31 2021 +0900
+
+    Update README.md
+
+[33mcommit 5f3e9a2ca71ebce059d3a9f0adf0bb94de3e70a3[m
+Author: shin-sj <sujung5092@gmail.com>
+Date:   Wed Aug 11 14:22:46 2021 +0900
+
+    로그인페이지
+
+[33mcommit a8d7e63094a4be986abb11bd41a67f0cb384e30d[m
+Author: shin-sj <sujung5092@gmail.com>
+Date:   Thu Aug 5 01:10:51 2021 +0900
+
+    Initialize project using Create React App
