@@ -173,12 +173,13 @@ const ImgTurn=styled.div`
 
     }
 
-    //찜 버튼 
+    //찜 버튼 눌렀을 때 
+    const userId = sessionStorage.getItem("userId");
     const onLikeSubmit = (check) => {
     	console.log(check);
        let ans = {
         postId: postId,
-        // nick: postInfo.user.nick,
+        userId: userId,
         check: check
         }
         axios.post('url', ans)

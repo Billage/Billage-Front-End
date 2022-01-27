@@ -7,30 +7,6 @@ import PostComponent2 from './PostComponent2';
 import { Link } from 'react-router-dom';
 import { findAllByTestId } from '@testing-library/react';
 
-//검색박스 전체 (회색 둥글둥글 모양) 스타일링입니다.
-const SearchBox=styled.div`
-
-    position:relative;
-    background-color:#E5E5E5;
-    border-radius:20px;
-    margin:-15px 15px 10px 15px;
-    padding:5px 5px 5px 20px;
-    height:25px;
-    display:flex;
-    align-items:center;
-    justify-content:flex-end;
-
-    `;
-//위의 검색박스 내의 input 창 스타일링입니다.
-const Input=styled.input`
-    width:95%;
-    outline:none;
-    border:none;
-    border-radius:20px;
-    height:25px;
-    background:none;
-`;
-
 //이미지 태그 (각 버튼들에 들어가는 아이콘) 대신 쓰는 component입니다.
 export const Img=styled.img`
 max-width: 100%;
@@ -221,7 +197,7 @@ const Scrap=()=>{
         <Input value={searchText} onChange={searchChange} onKeyPress={onKeyPress}/>
         {searchText&&<StyledButton onClick={btnClick} color="#E5E5E5"><Img src="img/search.png" alt="검색"/></StyledButton>}
         </SearchBox> */}
-        <p style={{fontSize:'16px', color:'#A352CC' ,fontWeight:'bolder', textAlign:'center', marginTop:'-5px'}}>스크랩</p>
+        <p style={{fontSize:'16px', color:'#A352CC' ,fontWeight:'bolder', textAlign:'center', marginTop:'-5px'}}>내가 찜한 물품</p>
         <br/>
         
         <MenuStyled>
