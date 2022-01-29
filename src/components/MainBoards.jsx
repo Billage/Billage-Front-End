@@ -215,7 +215,7 @@ const BorrowBoard=()=>{
           <Layout>
         <Sider trigger={null} collapsible collapsed={collapsed} style={{background:'#ffffff', height:'100'}}>
           <MBar  mode="inline" style={{color:'#7D7D7D'}}>
-          {login ? 
+          {!login ? 
           <>
            <Menu.Item key="1" icon={<UserOutlined />} >
            <a href="http://localhost:7000/auth/logout"> 로그아웃 </a>

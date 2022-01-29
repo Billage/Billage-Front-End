@@ -134,7 +134,7 @@ function LoginPage(props) {
                   <Styled>
                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
                       <label style={{color: '#878787'}}><input type="checkbox" name="save_id" value="save_id" checked={saveId} onChange={handleOnChange}/>ID 저장</label>
-                      <a href="/" style={{marginLeft : '160px'}}>ID/PW 찾기</a>
+                      <a href="/FindAccount" style={{marginLeft : '160px'}}>ID/PW 찾기</a>
                       <a href="/SignUp">회원가입</a>
                     </div>
                   </Styled>

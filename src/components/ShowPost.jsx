@@ -202,8 +202,7 @@ const StyledTab=styled(Tabs)`
             if(res.data){
                 setCurUser(res.data);
             }
-        }).
-        catch((error)=>{
+        }).catch((error)=>{
             console.log(error);
         }
 
@@ -301,6 +300,10 @@ const StyledTab=styled(Tabs)`
         <PostContent>  
         <ReviewButton style={{ position:'absolute',right:'5px'}}type="primary">후기 작성</ReviewButton>
         </PostContent>
+        {/* 리뷰글 리스트 */}
+        <div>
+            
+        </div>
         </TabPane>
   
          </StyledTab>

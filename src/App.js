@@ -24,6 +24,8 @@ import FindPw from './components/FindPw';
 import Quit from './components/Quit';
 import ReviewWrite from './components/ReviewWrite';
 import FindAccount from './components/FindAccount';
+import MyModal from './components/MyModal';
+import MyInfoEdit from './components/MyInfoEdit';
 function App() {
   return (
     
@@ -46,6 +48,8 @@ function App() {
           <Route exact path="/Quit" component={Quit}/>
           <Route exact path="/reviewWrite" component={ReviewWrite}/>
           <Route exact path="/FindAccount" component={FindAccount}/>
+          <Route exact path="/myModal" component={MyModal}/>
+          <Route exact path="/myInfo" component={MyInfoEdit}/>
         </Switch>
 
         {/* </Page> */}

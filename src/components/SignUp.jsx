@@ -78,6 +78,7 @@ const SignUp=()=>{
    
 
     const [email,setEmail] = useInput('');
+    const [id, setId]=useInput('');
     const [pw,setPw] = useInput('');
     const [nickname,setNickname] = useInput('');
     const [showAddress,setShowAddress] =  useState('');
@@ -87,12 +88,13 @@ const SignUp=()=>{
     const [pwError,setPwError]=useState(false);
     const [chkEmail,setChkEmail]=useState(false);
     const [chkNickname,setChkNickname]=useState(false);
+    const [chkId,setChkId]=useState(false);
     // const pwChkRef=useRef();
     // const pwRef=useRef();
     
     const onSubmitForm=(e)=>{
         e.preventDefault();
-        if(!(email&&pw&&pwChk&&nickname&&fullAddress)){
+        if(!(email&&id&&pw&&pwChk&&nickname&&fullAddress)){
             alert(`모든 문항을 입력해주세요`);
             return;
         }
@@ -106,12 +108,17 @@ const SignUp=()=>{
             alert('이메일 중복확인을 완료해주세요.');
             return;
         }
+        if(!chkId){
+            alert('아이디 중복확인을 완료해주세요.');
+            return;
+        }
         if(!chkNickname){
             alert('닉네임 중복확인을 완료해주세요.');
             return;
         }
         axios.post('url을 입력해주세요', {
                 email: email,
+                id:id,
                 password: pw,
                 nickname:nickname,
                 address:fullAddress,
@@ -190,6 +197,24 @@ const SignUp=()=>{
                 .catch((error)=> { console.log(error); }) //에러처리
             }
         }
+        else if(e.target.value==='id'){ //아이디 정보 받아오는 곳
+            if(!id) {
+                alert('입력창에 먼저 입력해주세요.');
+                return;
+            } else{ //여기에서 axios 통신하시고, 아래 주석처리된 if문 괄호도 채워서 주석 해제해주세요
+                axios.get('')
+                .then((res)=> { //성공적으로 통신했을 때
+                    // if() { //이미 저장된 아이디가 아니라면
+                    //     alert('사용 가능한 아이디입니다.');
+                    //     setChkId(true);
+                    // } else{ //이미 저장된 아이디라면 
+                    //     alert('이미 사용중인 아이디입니다.');
+                    //     setId('');
+                    // }
+                })
+                .catch((error)=> { console.log(error); }) //에러처리
+            }
+        }
 
     };
     return(
@@ -218,9 +243,16 @@ const SignUp=()=>{
         value={pwChk}
         onChange={onChangeChkPw}
         name="passwordChk" 
-        label="비12밀번호 확인" 
+        label="비밀번호 확인" 
         type="password"/>
     {pwError&&<div style={{color : '#F79F81', fontSize: '10px'}}>비밀번호가 일치하지 않습니다.</div>}
+    <Label>아이디</Label>
+    <InputComponent   
+        onChange={setId}
+        value={id}
+        name="id" 
+        label="아이디" />
+    <Btn onClick={onClickChk}  value="id">중복확인</Btn>
     <Label>닉네임</Label>
     <InputComponent   
         onChange={setNickname}
