@@ -48,7 +48,7 @@ const Text = styled.div`
     font-size:25px;
     font-weight:bold;
     color: white;
-`;
+`; 
 const Text2 = styled.div`
     margin-left: 70px;
     margin-bottom: 230px;
