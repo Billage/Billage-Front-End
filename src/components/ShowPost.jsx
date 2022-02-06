@@ -7,6 +7,7 @@ import { useHistory, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import {HeartOutlined, HeartFilled} from '@ant-design/icons';
+import ReviewList from './ReviewList';
 import LikeButton from './LikeButton';
 const { TabPane } = Tabs;
 
@@ -50,7 +51,8 @@ const PostHeader=styled.div`
     margin:10px 0 5px 0;
     padding: 2px;
     position:relative;
-   
+    height:40px;
+   text-align:center;
 `;
 
 const PostFooter=styled.div`
@@ -121,14 +123,24 @@ const ReviewButton=styled(Button)`
     border:1px solid #E5E5E5;
     color:#A352CC;
     &:hover, &:focus {
-        color:#ffffff;
-        background-color:#A352CC;
+        color:#A352CC;
+        background-color:#ffffff;
         border:1px solid #A352CC;
     }
-   
-  
+    height:28px;
+    text-align:center;
+    font-size:12px;
 `;
-
+const ChatButton2=styled(Button)`
+    background-color:#A352CC;
+    border:1px solid #ffffff;
+    color:#ffffff;
+    &:hover, &:focus {
+        color:#A352CC;
+        background-color:#ffffff;
+        border:1px solid #A352CC;
+    }
+`;
 const StyledTab=styled(Tabs)`
     size:large;
    
@@ -207,7 +219,7 @@ const StyledTab=styled(Tabs)`
         }
 
         );
-    });
+    },[]);
      //찜 버튼 
      const onLikeSubmit = (check) => {
     	console.log(check);
@@ -270,7 +282,7 @@ const StyledTab=styled(Tabs)`
         
         <PostButton>삭제</PostButton>
         </div>
-      
+        {/* } */}
         </PostTitle>
             <div style={{color:'#7D7D7D',fontSize:'12px', margin:'2px 0 0 2px'}}>{postInfo.createAt}</div> {/* 글쓴 날짜 및 시각 */}
         <PostContent>  
@@ -296,16 +308,13 @@ const StyledTab=styled(Tabs)`
         {/* {postInfo.body}  */}
         </PostContent>
         </TabPane>
-        <TabPane tab="대여 후기" key="2">
-        <PostContent>  
-        <ReviewButton style={{ position:'absolute',right:'5px'}}type="primary">후기 작성</ReviewButton>
-        </PostContent>
+        <TabPane tab="대여 후기" key="2"> 
+        <PostHeader style={{border:'none',margin:'0', padding:'0'}}>
+        <ReviewButton postId={postId} style={{ position:'absolute',left:'5px'}}type="primary">후기 작성</ReviewButton>
+      </PostHeader>
         {/* 리뷰글 리스트 */}
-        <div>
-            
-        </div>
+          <ReviewList />
         </TabPane>
-  
          </StyledTab>
         
         <PostFooter>
@@ -317,7 +326,7 @@ const StyledTab=styled(Tabs)`
             <LikeButton onSubmit={onLikeSubmit}/>
 
             {/* 채팅 */}
-            <ChatButton onClick={onClickChat}>채팅 보내기</ChatButton>
+            <ChatButton2 onClick={onClickChat}>쪽지 보내기</ChatButton2>
             </div>
         </PostFooter>
       
