@@ -1,0 +1,108 @@
+App {
+  display: flex;
+  justify-content: space-between;
+  /* width: 412px;
+  position: absolute; 
+  left: 50%; 
+  margin-left: -206px;  */
+
+}
+
+/* table {
+  margin-left:auto; 
+  margin-right:auto;
+}
+table, th, td {
+  border-collapse : collapse; 
+  display: flex;
+  width: 390px; 
+  margin-top: 5px;
+  border: 1px solid black; 
+} */
+
+
+a {
+  font-size: 95%;
+  text-decoration: none;
+}
+
+/* ListPage */
+.ListTable {
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: 1px solid lightgray;
+}
+
+.ListTable,
+.ListTd,
+.ListTr,
+.ListTh {
+  border-collapse: collapse;
+  width: 400px;
+  height: 40px;
+  margin-top: 5px;
+  /* border: 1px solid blue; */
+
+}
+
+/* .ListTh {
+  width: 100px;
+} */
+
+/* Header */
+/* .HeaderTable {
+  margin-left:auto; 
+  margin-right:auto;}
+  /* border: 1px solid black;  */
+
+/* .HeaderTd {
+  width: 10%;
+}
+.HeaderTh {
+  width: 60%;
+} */
+
+/* Search */
+/* .searchTable {
+  background-color: #F3F3F3;
+  height: 30px;
+  width: 400px;
+}
+.searchTh {
+  width: 90%;
+}
+.searchTd {
+  width: 10%;
+} */
+
+/* 
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+.App-link {
+  color: #61dafb;
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */

@@ -1,0 +1,32 @@
+.myChat {
+    text-align: right;
+    margin-left: 25%;
+}
+
+.anotherChat {
+    text-align: left;
+    margin-bottom: 5px;
+    margin-right: 25%;
+}
+
+.msg {
+    display: inline-block;
+    padding: 6px 15px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+
+    font-family: 'KoddiUDOnGothic-Regular';
+
+    /* overflow-x: visible; */
+
+}
+
+.myChat>.msg {
+    background-color: #efceff;
+    border-radius: 10px 0px 10px 10px;
+}
+
+.anotherChat>.msg {
+    background-color: #d2d6d2;
+    border-radius: 0px 10px 10px 10px;
+}
