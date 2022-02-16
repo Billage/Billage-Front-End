@@ -23,7 +23,13 @@ import Scrap from './components/Scrap';
 import FindId from './components/FindId';
 import FindPw from './components/FindPw';
 import Quit from './components/Quit';
+import WriteList from './components/WriteList';
+import MyReviewList from './components/MyReviewList';
 import ChatListComponent from './components/ChatListComponent';
+
+import ReviewList from './components/ReviewList';
+import ReviewPost from './components/ReviewPost';
+import ReviewWrite from './components/ReviewWrite';
 function App() {
   return (
     
@@ -44,7 +50,12 @@ function App() {
           <Route exact path="/FindId" component={FindId}/>
           <Route exact path="/FindPw" component={FindPw}/>
           <Route exact path="/Quit" component={Quit}/>
+          <Route exact path="/WriteList" component={WriteList}/>
+          <Route exact path="/MyReviewList" component={MyReviewList}/>
           <Route exact path="/ChatListComponent" component={ChatListComponent}/>
+          <Route exact path="/ReviewList" component={ReviewList}/>
+          <Route exact path="/ReviewPost" component={ReviewPost}/>
+          <Route exact path="/ReviewWrite" component={ReviewWrite}/>
         </Switch>
 
         {/* </Page> */}

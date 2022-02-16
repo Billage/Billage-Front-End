@@ -111,7 +111,6 @@ const ImgTurn=styled.div`
     text-align:center;
 `;
 
-
     const ShowPost=({postId})=>{
     const [imgArr,setImgArr]=useState([{url:'img/빔프로젝터.jpg', name:'빔 프로젝터'}, {url:'img/바다.jpeg', name:'빔 프로젝터'}]); //이미지를 넣는 배열 
     const [postInfo,setPostInfo]=useState(''); //이미지 제외 게시글 정보
@@ -155,7 +154,6 @@ const ImgTurn=styled.div`
     }//슬라이더 왼쪽 버튼 누르면, 처음 인덱스가 아닌지 확인후 이전 인덱스의 이미지 가져옴
     };
 
-
     //채팅 보내기 버튼 눌렀을 때 
     const onClickChat = () => {
         window.location.href = "/Chatting";
@@ -170,14 +168,13 @@ const ImgTurn=styled.div`
         .catch( (error)=> {
             console.log(error);
         });
-
     }
 
     //찜 버튼 눌렀을 때 
     const userId = sessionStorage.getItem("userId");
     const onLikeSubmit = (check) => {
-    	console.log(check);
-       let ans = {
+        console.log(check);
+        let ans = {
         postId: postId,
         userId: userId,
         check: check
@@ -191,7 +188,6 @@ const ImgTurn=styled.div`
             .catch(error=>{
                 console.log(error);
             });
-
     }
   
     
