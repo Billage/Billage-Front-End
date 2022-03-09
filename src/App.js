@@ -21,9 +21,14 @@ import FindPw from './components/FindPw';
 import Quit from './components/Quit';
 import ReviewWrite from './components/ReviewWrite';
 import ReviewList from './components/ReviewList';
+import ReviewEdit from './components/ReviewEdit';
 import FindAccount from './components/FindAccount';
 import MyModal from './components/MyModal';
+import WriteList from './components/WriteList';
 import MyInfoEdit from './components/MyInfoEdit';
+import MyReviewList from './components/MyReviewList';
+
+
 function App() {
   return (
     <Router>
@@ -34,20 +39,23 @@ function App() {
           <Route exact path="/login" component={LoginPage}/>
           <Route exact path="/" component={MainBoards}/>
           <Route exact path="/write" component={Write}/>
+          <Route exact path="/mypost" component={WriteList}/>
           <Route exact path="/chat/:roomId" component={Chatting}/>
           <Route exact path="/chat" component={ChatList}/>
           <Route exact path="/post/:id" component={ShowPost}/>
-          <Route exact path="/Update" component={Update}/>
+          <Route exact path="/post/:id/update" component={Update}/>
           <Route exact path="/" component={MainBoards}/>
           <Route exact path="/scrap" component={Scrap}/>
           <Route exact path="/FindId" component={FindId}/>
           <Route exact path="/FindPw" component={FindPw}/>
           <Route exact path="/delete" component={Quit}/>
           <Route exact path="/post/:id/review/write" component={ReviewWrite}/>
-          <Route exact path="/post/:id/review" component={ReviewList}/>
+          <Route exact path="/post/:id/review" component={ReviewList}/> 
+          <Route exact path="/review/edit/:id" component={ReviewEdit}/>
+          <Route exact path="/myreview" component={MyReviewList}/>
           <Route exact path="/find" component={FindAccount}/>
           <Route exact path="/myModal" component={MyModal}/>
-          <Route exact path="/my" component={MyInfoEdit}/>
+          <Route exact path="/myinfo" component={MyInfoEdit}/>
         </Switch>
       </div>
     </Router>

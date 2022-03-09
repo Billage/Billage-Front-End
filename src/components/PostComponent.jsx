@@ -61,7 +61,7 @@ const PostComponent = ({ title, postDate, writerAddress, startDate, endDate, cos
             }}>{writerAddress}</div>
             <PostFooter>
                 <div style={{ fontSize: '16px' }}>{`${startDate} - ${endDate}`}</div>
-                <div>{cost}</div>
+                <div>{cost}원</div>
             </PostFooter>
         </Post>
     )

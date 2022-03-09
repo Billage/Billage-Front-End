@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState } from 'react'
 import styled from "styled-components";
 import axios from 'axios';
 import DatePicker from "react-datepicker";
@@ -235,8 +235,8 @@ function Write(props) {
         date: moment().format('YYYY.MM.DD HH:mm'),
       };
 
-      axios.post('http://localhost:7000/post/write/lend', data,
-        { withCredentials: true })
+      axios.post('http://localhost:7000/post/write/lend', data
+        , { withCredentials: true })
         .then((res) => {
           props.history.push('/'); //메인 화면으로이동
         })
@@ -293,17 +293,11 @@ function Write(props) {
               </InitialBox>
             </label>
             <FileInput type="file" id="file" multiple accept="image/*" onChange={(e) => insertImg(e)} style={{ visibility: "hidden" }} />
-
             <Scroll>
               {getPreviewImg()} {/*사진 미리보기*/}
             </Scroll>
-
-
           </MainContainer>
-
         </div> : <div />}
-
-
         <hr />
         <InputStyled
           type="title"

@@ -5,26 +5,18 @@ import axios from 'axios';
 import PostComponent from './PostComponent';
 import PostComponent2 from './PostComponent2';
 import { Link } from 'react-router-dom';
-import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import '../index.css';
 import '../App.css';
-import { Layout, Menu, Button } from 'antd';
+import { Layout, Menu } from 'antd';
 import {
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
     UserOutlined,
-    VideoCameraOutlined,
-    UploadOutlined,
-    AppstoreTwoTone,
-    getTwoToneColor, setTwoToneColor,
+    setTwoToneColor,
     RightCircleTwoTone,
     LeftCircleTwoTone,
     EditOutlined,
     ScissorOutlined,
     HeartOutlined,
-    NotificationOutlined,
-    TeamOutlined,
     CommentOutlined
 } from '@ant-design/icons';
 setTwoToneColor('#EBCAFD');
@@ -71,6 +63,7 @@ const StyledButton = styled.button`
 const List = styled.div`
     font-family:'KoddiUDOnGothic-Regular';
 `;
+
 //메뉴 스타일
 const MenuStyled = styled.div`
     display:flex;
@@ -83,7 +76,14 @@ const PageStyled = styled.div`
     top: 0px;
     z-index: 1;
     background-color: white;
+    aside {
+    max-width: 0;
+    min-width: 0;
+    display:block;
+    width:0;
+}
 `;
+
 //메뉴바
 const MBar = styled(Menu)`
 // .ant-menu > .ant-menu-item:hover,
@@ -97,31 +97,55 @@ const MBar = styled(Menu)`
 //   color: red;
 //   border-bottom: 2px solid red;
 // }
-.ant-menu-item-selected {
-    background-color:  #EBCAFD !important;
-    color: #ffffff;
-  }
-  .ant-menu-item:hover {
-    background-color:  #EBCAFD !important;
-    color: #ffffff;
-  }
-  .ant-menu-item-active {
-    background-color:  #EBCAFD !important;
-    color: #ffffff;
-  }
-  .ant-menu-item-open{
-    background-color:  #EBCAFD !important;
-    color: #ffffff;
-  }
-  .ant-menu-item-selected::after {
-    border-right: 2px solid #A352CC;
-  }
-  .ant-menu-title-content>a{
-      &:hover{
-      color:#ffffff;
-      }
-  }
-  
+    .ant-menu-item-selected {
+        background-color:  #EBCAFD !important;
+        color: #ffffff;
+    }
+    .ant-menu-item:hover {
+        background-color:  #EBCAFD !important;
+        color: #ffffff;
+    }
+    .ant-menu-item-active {
+        background-color:  #EBCAFD !important;
+        color: #ffffff;
+    }
+    .ant-menu-item-open{
+        background-color:  #EBCAFD !important;
+        color: #ffffff;
+    }
+    .ant-menu-item-selected::after {
+        border-right: 2px solid #A352CC;
+    }
+    .ant-menu-title-content>a{
+        &:hover{
+        color:#ffffff;
+        }
+    }
+`;
+
+const SideBar = styled(Sider)`
+    display: ${props => props.display};
+// pointer-events:none;
+// aside{
+//         max-width: 0px !important;
+//         min-width: 0px !important;
+//         width:0px;
+//         pointer-events:none;
+// }
+// .ant-layout-sider .ant-layout-sider-collapsed .ant-layout-sider-dark {
+//     max-width: 0px !important;
+//     min-width: 0px !important;
+// }
+// .ant-layout .ant-layout-has-sider .ant-layout-sider{
+//     max-width: 0px !important;
+//     min-width: 0px !important;
+//     width:0;
+// }
+// .ant-layout-sider-children .ant-menu.ant-menu-inline-collapsed{
+//     max-width: 0px !important;
+//     min-width: 0px !important;
+//     width:0;
+//   }
 `;
 
 
@@ -151,8 +175,11 @@ const BorrowBoard = () => {
     };
     //메뉴버튼 여닫는 toggle 관련 버튼
     const [collapsed, setCollpased] = useState(true);
+    //메뉴 없애기
     const toggle = () => {
+
         setCollpased(!collapsed);
+
     };
     // 유저 정보 가져오기
     const getUser = () => {
@@ -183,9 +210,11 @@ const BorrowBoard = () => {
                 console.error(error)
             })
     }, []);
+    // ---------------------------------------------------
     const searchChange = (e) => {//검색창에 text 입력했을 때 입력한 text를 검색 text에 넣어줌
         setSearchText(e.target.value);
     };
+
     const btnClick = () => { //검색창 버튼 클릭했을 때 뜨는 버튼
         //filtered: 검색 결과 게시물들이 담기는 배열
         if (lendBtn) {
@@ -202,134 +231,137 @@ const BorrowBoard = () => {
         setSearchText('');
         setSearch(true);
     };
+
     const onKeyPress = (e) => {
         if (e.key === 'Enter') {
             btnClick();
         }
     };
+
     const numberWithCommas = (x) => {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
     return (
-        <div>
-            <Layout>
-                <Sider trigger={null} collapsible collapsed={collapsed} style={{ background: '#ffffff', height: '100' }}>
-                    <MBar mode="inline" style={{ color: '#7D7D7D' }}>
-                        {login ?
-                            <>
-                                <Menu.Item key="1" icon={<UserOutlined />} >
-                                    <a href="http://localhost:7000/auth/logout"> 로그아웃 </a>
-                                </Menu.Item>
-                                <Menu.Item key="2" icon={<ScissorOutlined />}>
-                                <a href="http://localhost:3000/my"> 내 정보 수정 </a>
-                                </Menu.Item>
-                                <Menu.Item key="3" icon={<EditOutlined />}>
+        <Layout>
+            <SideBar display={collapsed ? 'none' : 'block'} trigger={null} collapsible collapsed={collapsed} style={{
+                background: '#ffffff', width: '0', height: '100',
+            }}>
+                <MBar mode='inline' inlineCollapsed='true' style={{ color: '#7D7D7D' }}>
+                    {login ?
+                        <>
+                            <Menu.Item key="1" icon={<UserOutlined />} >
+                                <a href="http://localhost:7000/auth/logout"> 로그아웃 </a>
+                            </Menu.Item>
+                            <Menu.Item key="2" icon={<ScissorOutlined />}>
+                                <a href="http://localhost:3000/myinfo"> 내 정보 수정 </a>
+                            </Menu.Item>
+                            <Menu.Item key="3" icon={<EditOutlined />}>
                                 <a href="http://localhost:3000/write"> 게시글 작성 </a>
-                                </Menu.Item>
-                                <Menu.Item key="4" icon={<CommentOutlined />}>
+                            </Menu.Item>
+                            <Menu.Item key="4" icon={<CommentOutlined />}>
                                 <a href="http://localhost:3000/chat"> 내 쪽지함 </a>
-                                </Menu.Item>
-                                <Menu.Item key="5" icon={<HeartOutlined />}>
+                            </Menu.Item>
+                            <Menu.Item key="5" icon={<HeartOutlined />}>
                                 <a href="http://localhost:3000/scrap"> 내가 찜한 물품 </a>
-                                </Menu.Item>
-                            </>
-                            : <>
-                                <Menu.Item key="1" icon={<UserOutlined />}  >
-                                    <a href="/login" >로그인 / 회원가입</a>
-                                </Menu.Item>
-                            </>}
-                    </MBar>
-                </Sider>
-                <Layout className="site-layout">
-                    <BoardNav showAddress={showAddress} login={login} boardName="게시판" />
-                    <Header className="site-layout-background" style={{ position: 'absolute', top: '10px', padding: '20px', background: '#ffffff', fontSize: '30px' }}>
-                        {React.createElement(collapsed ? LeftCircleTwoTone : RightCircleTwoTone, {
-                            className: 'trigger',
-                            onClick: toggle,
-                        })}
-                    </Header>
-                    <Content
-                        className="site-layout-background"
-                        style={{
-                            position: 'sticky',
-                            top: '0px',
-                            zIndex: 1,
-                            backgroundColor: 'white'
-                        }}
-                    >
-                        <PageStyled>
-                            <br />
-                            <SearchBox>
-                                <Input value={searchText} onChange={searchChange} onKeyPress={onKeyPress} />
-                                {searchText && <StyledButton onClick={btnClick} color="#E5E5E5"><Img src="img/search.png" alt="검색" /></StyledButton>}
-                                {/* 검색창에 입력된 text 내용이 있을 경우 검색 버튼이 활성화됩니다. */}
-                            </SearchBox>
-                            <MenuStyled>
-                                <a href="/" onClick={onClickMenu1} style={fontStyle1}>빌려줄게요</a>
-                                <a href="/" onClick={onClickMenu2} style={fontStyle2}>빌려주세요</a>
-                            </MenuStyled>
-                            <hr></hr>
-                        </PageStyled>
-                        <List>
-                            {(!search && lendBtn) && lendYouList.map((data) => { //빌려줄게요 게시판 
-                                return (<Link to={`post/${data.id}`}>
-                                    <PostComponent2
-                                        image={data.url.split('[---]')[0]}
-                                        title={data.title}
-                                        postDate={data.date}
-                                        writerAddress={data.address}
-                                        startDate={data.startDate}
-                                        endDate={data.endDate}
-                                        cost={numberWithCommas(Number(data.price))}
-                                        key={data.id}
-                                    /></Link>);
-                            }
-                            )}
-                            {(search && lendBtn) && filteredPost.map((data) => { //빌려줄게요 게시판에서 검색
-                                return (<Link to={`post/${data.id}`}>
-                                    <PostComponent2
-                                        image={data.url.split('[---]')[0]}
-                                        title={data.title}
-                                        postDate={data.date}
-                                        writerAddress={data.address}
-                                        startDate={data.startDate}
-                                        endDate={data.endDate}
-                                        cost={numberWithCommas(Number(data.price))}
-                                        key={data.id}
-                                    /></Link>);
-                            }
-                            )}
-                            {(!search && borrowBtn) && borrowMeList.map((data) => { //빌려주세요 게시판
-                                return (<Link to={`post/${data.id}`}>
-                                    <PostComponent
-                                        title={data.title}
-                                        postDate={data.date}
-                                        writerAddress={data.address}
-                                        startDate={data.startDate}
-                                        endDate={data.endDate}
-                                        cost={numberWithCommas(Number(data.price))}
-                                        key={data.id}
-                                    /></Link>);
-                            }
-                            )}
-                            {(search && borrowBtn) && filteredPost.map((data) => { //빌려주세요 게시판에서 검색
-                                return (<Link to={`post/${data.id}`}>
-                                    <PostComponent
-                                        title={data.title}
-                                        postDate={data.date}
-                                        writerAddress={data.address}
-                                        startDate={data.startDate}
-                                        endDate={data.endDate}
-                                        cost={numberWithCommas(Number(data.price))}
-                                        key={data.id}
-                                    /></Link>);
-                            }
-                            )}
-                        </List>
-                    </Content>
-                </Layout>
+                            </Menu.Item>
+                        </>
+                        : <>
+                            <Menu.Item key="1" icon={<UserOutlined />}  >
+                                <a href="/login" >로그인 / 회원가입</a>
+                            </Menu.Item>
+                        </>}
+
+                </MBar>
+            </SideBar>
+            <Layout className="site-layout">
+                <BoardNav showAddress={showAddress} login={login} boardName="게시판" />
+                <Header className="site-layout-background" style={{ position: 'absolute', top: '10px', padding: '20px', background: '#ffffff', fontSize: '30px' }}>
+                    {React.createElement(collapsed ? RightCircleTwoTone : LeftCircleTwoTone, {
+                        className: 'trigger',
+                        onClick: toggle,
+                    })}
+                </Header>
+                <Content
+                    className="site-layout-background"
+                    style={{
+                        position: 'sticky',
+                        top: '0px',
+                        zIndex: 1,
+                        backgroundColor: 'white',
+                    }}
+                >
+                    <PageStyled>
+                        <br />
+                        <SearchBox>
+                            <Input value={searchText} onChange={searchChange} onKeyPress={onKeyPress} />
+                            {searchText && <StyledButton onClick={btnClick} color="#E5E5E5"><Img src="img/search.png" alt="검색" /></StyledButton>}
+                            {/* 검색창에 입력된 text 내용이 있을 경우 검색 버튼이 활성화됩니다. */}
+                        </SearchBox>
+                        <MenuStyled>
+                            <a href="/" onClick={onClickMenu1} style={fontStyle1}>빌려줄게요</a>
+                            <a href="/" onClick={onClickMenu2} style={fontStyle2}>빌려주세요</a>
+                        </MenuStyled>
+                        <hr></hr>
+                    </PageStyled>
+                    <List>
+                        {(!search && lendBtn) && lendYouList.map((data) => { //빌려줄게요 게시판 
+                            return (<Link to={`post/${data.id}`}>
+                                <PostComponent2
+                                    image={data.url.split('[---]')[0]}
+                                    title={data.title}
+                                    postDate={data.date}
+                                    writerAddress={data.address}
+                                    startDate={data.startDate}
+                                    endDate={data.endDate}
+                                    cost={numberWithCommas(Number(data.price))}
+                                    key={data.id}
+                                /></Link>);
+                        }
+                        )}
+                        {(search && lendBtn) && filteredPost.map((data) => { //빌려줄게요 게시판에서 검색
+                            return (<Link to={`post/${data.id}`}>
+                                <PostComponent2
+                                    image={data.url.split('[---]')[0]}
+                                    title={data.title}
+                                    postDate={data.date}
+                                    writerAddress={data.address}
+                                    startDate={data.startDate}
+                                    endDate={data.endDate}
+                                    cost={numberWithCommas(Number(data.price))}
+                                    key={data.id}
+                                /></Link>);
+                        }
+                        )}
+                        {(!search && borrowBtn) && borrowMeList.map((data) => { //빌려주세요 게시판
+                            return (<Link to={`post/${data.id}`}>
+                                <PostComponent
+                                    title={data.title}
+                                    postDate={data.date}
+                                    writerAddress={data.address}
+                                    startDate={data.startDate}
+                                    endDate={data.endDate}
+                                    cost={numberWithCommas(Number(data.price))}
+                                    key={data.id}
+                                /></Link>);
+                        }
+                        )}
+                        {(search && borrowBtn) && filteredPost.map((data) => { //빌려주세요 게시판에서 검색
+                            return (<Link to={`post/${data.id}`}>
+                                <PostComponent
+                                    title={data.title}
+                                    postDate={data.date}
+                                    writerAddress={data.address}
+                                    startDate={data.startDate}
+                                    endDate={data.endDate}
+                                    cost={numberWithCommas(Number(data.price))}
+                                    key={data.id}
+                                /></Link>);
+                        }
+                        )}
+                    </List>
+                </Content>
             </Layout>
-        </div>
+        </Layout>
     );
 };
 

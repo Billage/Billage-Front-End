@@ -28,11 +28,10 @@ const ReviewWrite = ({ match }) => {
         postId: postId,
         date: moment().format('YYYY.MM.DD'),
       };
-      console.log(data);
       axios.post('http://localhost:7000/review/write', data,
         { withCredentials: true })
         .then((res) => {
-          window.location.href = `/post/${postId}`;
+          history.goBack();
         })
         .catch((error) => {
           console.log(error);

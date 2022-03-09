@@ -89,7 +89,6 @@ const HighLight = styled.div`
     color:#A352CC;
     font-size:20px;
     font-weight:bold;
-    
     background-color:white;
 `;
 
@@ -122,16 +121,29 @@ const ImgTurn = styled.div`
     text-align:center;
 `;
 
-const ReviewButton = styled(Button)`
+const ReviewButton=styled(Button)`
     background-color:#ffffff;
     border:1px solid #E5E5E5;
     color:#A352CC;
     &:hover, &:focus {
-        color:#ffffff;
-        background-color:#A352CC;
+        color:#A352CC;
+        background-color:#ffffff;
         border:1px solid #A352CC;
     }
+    height:28px;
+    text-align:center;
+    font-size:12px;
+`;
 
+const ChatButton2=styled(Button)`
+    background-color:#A352CC;
+    border:1px solid #ffffff;
+    color:#ffffff;
+    &:hover, &:focus {
+        color:#A352CC;
+        background-color:#ffffff;
+        border:1px solid #A352CC;
+    }
 `;
 
 const StyledTab = styled(Tabs)`
@@ -142,10 +154,9 @@ const ShowPost = () => {
     let [imgIdx, setImgIdx] = useState(0); //이미지 슬라이더에서 사진 교체할 때 사용하는 인덱스 넘버
     const [imgArr, setImgArr] = useState([]); //이미지를 넣는 배열 
     const [postInfo, setPostInfo] = useState(''); //이미지 제외 게시글 정보
-    const [curUser, setCurUser] = useState('') //현재 계정에 접속해 서비스를 사용하는 사용자
+    const [curUser, setCurUser] = useState(''); //현재 계정에 접속해 서비스를 사용하는 사용자
     const { id } = useParams();
     const postId = id;
-    console.log(postId);
 
     const getPostContent = (postId) => {
         return axios.get('http://localhost:7000/post/id', { //통신을 위한 url을 적어주세요.
@@ -160,7 +171,6 @@ const ShowPost = () => {
             .then(axios.spread((contentResp) => { // response를 spread로 받는다 , imgResp
                 //contentResp: 이미지를 제외한 게시물 정보 데이터 / imgResp: 이미지 데이터
                 setPostInfo(contentResp.data);
-                console.log(contentResp.data)
                 if (contentResp.data.url) {
                     setImgArr(contentResp.data.url.split('==='));
                 }
@@ -170,7 +180,6 @@ const ShowPost = () => {
         axios.get("http://localhost:7000/auth", { withCredentials: true })
             .then((res) => {
                 if (res.data) {
-                    console.log(res.data);
                     setCurUser(res.data);
                 }
             }).catch((error) => {
@@ -207,17 +216,7 @@ const ShowPost = () => {
 
     //채팅 보내기 버튼 눌렀을 때 
     const onClickChat = () => {
-        window.location.href = "/Chatting";
-        //닉네임 보내기 
-        axios.post('url', {
-            nick: postInfo.user.nick,
-        }
-        ).then((res) => {
-            console.log(res);
-        })
-            .catch((error) => {
-                console.log(error);
-            });
+        window.location.href = `/chat/${postId}_${curUser.id}`;
     }
 
     //찜 버튼 
@@ -283,12 +282,12 @@ const ShowPost = () => {
                             {/* 현재 계정 접속자와 글쓴이 id 가 같으면 수정/삭제 버튼이 보입니다 */}
                             {postInfo.userId === curUser.id &&
                                 <div>
-                                    <Link to={`/Update/${postInfo.id}`}><PostButton>수정</PostButton></Link>
+                                    <Link to={`/post/${postInfo.id}/update`}><PostButton>수정</PostButton></Link>
                                     <PostButton onClick={onClickDelete}>삭제</PostButton>
                                 </div>
                             }
                         </PostTitle>
-                        <div style={{ color: '#7D7D7D', fontSize: '12px', margin: '2px 0 0 2px' }}>{postInfo.createAt}</div> {/* 글쓴 날짜 및 시각 */}
+                        <div style={{ color: '#7D7D7D', fontSize: '12px', margin: '2px 0 0 2px' }}>{postInfo.date}</div> {/* 글쓴 날짜 및 시각 */}
                         <PostContent>
                             {/* 게시글 보이는 곳*/}
                             {/* 게시글 줄 띄어쓰기되는 코드입니다 */}
@@ -310,9 +309,7 @@ const ShowPost = () => {
                         {/* 리뷰글 리스트 */}
                         <ReviewList />
                     </TabPane>
-
                 </StyledTab>
-
                 <PostFooter>
                     <HighLight style={{ background: 'white' }}>
                         {numberWithCommas(Number(postInfo.price))}원
@@ -321,13 +318,10 @@ const ShowPost = () => {
                         {/* 게시글 찜 */}
                         <LikeButton onSubmit={onLikeSubmit} />
                         {/* 채팅 */}
-                        <ChatButton onClick={onClickChat}>채팅 보내기</ChatButton>
+                        <ChatButton2 onClick={onClickChat}>쪽지 보내기</ChatButton2>
                     </div>
                 </PostFooter>
-
-
             </PostComponent>
-
         </div>
     );
 };

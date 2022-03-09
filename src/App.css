@@ -1,4 +1,4 @@
-App {
+.App {
   display: flex;
   justify-content: space-between;
   /* width: 412px;
@@ -41,6 +41,7 @@ a {
   width: 400px;
   height: 40px;
   margin-top: 5px;
+
   /* border: 1px solid blue; */
 
 }

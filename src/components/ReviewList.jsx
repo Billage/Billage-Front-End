@@ -7,7 +7,6 @@ import { useParams } from 'react-router';
 import profile from './images/profile.png'
 import styled from 'styled-components';
 
-
 const StyledBtn = styled(Button)`
 &:hover, &:focus {
   color:#A352CC;
@@ -15,17 +14,19 @@ const StyledBtn = styled(Button)`
   border:1px solid #A352CC;
 }
 `;
-const ReviewList = ({ match }) => {
+
+const ReviewList = () => {
   const count = 3;
   const [initLoading, setInitLoading] = useState(true);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [list, setList] = useState([]);
+  const [curUser, setCurUser] = useState('');
   const { id } = useParams();
   const postId = id;
 
   useEffect(() => {
-    axios.get('http://localhost:7000/review/id', { //통신을 위한 url을 적어주세요.
+    axios.get('http://localhost:7000/review/list/id', { //통신을 위한 url을 적어주세요.
       params: {
         id: postId, //글을 클릭할때 게시글 아이디(postId)를 넘겨줘서 해당 아이디에 맞는 데이터 가져옴
       }
@@ -37,6 +38,14 @@ const ReviewList = ({ match }) => {
       }).catch((error) => {
         console.log(error);
       })
+    axios.get("http://localhost:7000/auth", { withCredentials: true })
+      .then((res) => {
+        if (res.data) {
+          setCurUser(res.data);
+        }
+      }).catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   const onLoadMore = () => {
@@ -44,7 +53,7 @@ const ReviewList = ({ match }) => {
     setList(data.concat(
       [...new Array(count)].map(() => ({ loading: true })),
     ));
-    axios.get('http://localhost:7000/review/id', { //통신을 위한 url을 적어주세요.
+    axios.get('http://localhost:7000/review/list/id', { //통신을 위한 url을 적어주세요.
       params: {
         id: postId, //글을 클릭할때 게시글 아이디(postId)를 넘겨줘서 해당 아이디에 맞는 데이터 가져옴
       }
@@ -57,24 +66,23 @@ const ReviewList = ({ match }) => {
       }).catch(error => {
         console.log(error)
       })
-    // Resetting window's offsetTop so:to display react-virtualized demo underfloor.
-    // In real scene, you can using public method of react-virtualized:
-    // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
     window.dispatchEvent(new Event('resize'));
   };
 
   const loadMore =
-    !(initLoading && loading) ?
-      (<div
-        style={{
-          textAlign: 'center',
-          marginTop: 12,
-          height: 32,
-          lineHeight: '32px',
-        }}
-      >
-        <StyledBtn onClick={onLoadMore}>빌린 후기 더보기</StyledBtn>
-      </div>)
+    data.length > 3 ?
+      (!(initLoading && loading) ?
+        (<div
+          style={{
+            textAlign: 'center',
+            marginTop: 12,
+            height: 32,
+            lineHeight: '32px',
+          }}
+        >
+          <StyledBtn onClick={onLoadMore}>빌린 후기 더보기</StyledBtn>
+        </div>)
+        : null)
       : null;
 
   return (
@@ -86,11 +94,9 @@ const ReviewList = ({ match }) => {
       dataSource={list}
       renderItem={item => (
         //  현재 계정 접속자와 글쓴이 id 가 같으면 수정/삭제 버튼이 보입니다 
-        //  {postInfo.user.id===curUser.id &&   
         <List.Item
-          actions={[<Link to={"list-loadmore-edit"}>수정</Link>, <Link to={"list-loadmore-more"}>삭제</Link>]}
+          actions={item.nick === curUser.nick && [<Link to={`/review/edit/${item.id}`}>수정</Link>, <Link to={"list-loadmore-more"}>삭제</Link>]}
         >
-          {/* } */}
           <Skeleton avatar title={false} loading={item.loading} active>
             <List.Item.Meta
               avatar={<Avatar src={profile} />}
@@ -98,7 +104,7 @@ const ReviewList = ({ match }) => {
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <span style={{ fontWeight: 'bold' }}>{item.nick}</span>
-                    <Rate style={{ color: '#EBCAFD', fontSize: '16px', marginRight: '20px' }} disabled defaultValue={item.score} />
+                    <Rate allowHalf style={{ color: '#EBCAFD', fontSize: '16px', marginRight: '20px' }} disabled defaultValue={item.score} />
                   </div>
                   <span style={{ fontWeight: 'normal', color: '#7D7D7D', fontSize: '12px' }}>{item.date}</span>
                 </div>

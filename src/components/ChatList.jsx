@@ -3,13 +3,12 @@ import styled from "styled-components";
 import axios from 'axios';
 import ChatListComponent from './ChatListComponent';
 import { Link } from 'react-router-dom';
-import { findAllByTestId } from '@testing-library/react';
 
 const List = styled.div`
     font-family:'KoddiUDOnGothic-Regular';
 `;
 
-//스크롤 할때 상단 고정
+//스크롤 할때 상단 고정zz
 const PageStyled = styled.div`
     position: sticky;
     top: 0px;
@@ -24,8 +23,7 @@ const ChatList = () => {
         axios.get("http://localhost:7000/chat",
             { withCredentials: true })
             .then((res) => {
-                setChatList(res.data);
-                console.log(res.data);
+                setChatList(res.data);       
             }).catch((error) => {
                 console.error(error)
             })
@@ -43,7 +41,7 @@ const ChatList = () => {
                     return (<Link to={`/chat/${data.roomId}`}>
                         <ChatListComponent
                             user={data.user1}
-                            content="안녕하세요"
+                            content={data.latest}
                             address={data.user1Address}
                         />
                     </Link>
