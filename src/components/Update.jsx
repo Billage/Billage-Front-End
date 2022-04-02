@@ -153,7 +153,8 @@ const Update = (props) => {
   const [imgArr, setImg] = useState([]);
   const { id } = useParams();
   const postId = id;
-
+  const formData = new FormData();
+  
   useEffect(() => {
     async function fetchUser() {
       try {
@@ -165,9 +166,11 @@ const Update = (props) => {
         setTitle(response.data.title);
         setContent(response.data.body);
         setPrice(response.data.price);
-        setStartDate(response.data.startDate);
-        setEndDate(response.data.endDate);
-        setImg(response.data.url);
+        setStartDate(new Date(response.data.startDate));
+        setEndDate(new Date(response.data.endDate));
+        if(response.data.url) {
+          setImg(response.data.url.split('==='));
+        }
       } catch (e) {
         console.log(e);
       }
@@ -175,13 +178,13 @@ const Update = (props) => {
     fetchUser();
   }, [])
   const insertImg = (e) => {
-    let formData = new FormData();
     for (let i = 0; i < e.target.files.length; i++) {
       formData.append('img', e.target.files[i]);
     }
     axios.post('http://localhost:7000/post/img', formData, { withCredentials: true })
       .then((res) => {
         setImg(res.data);
+        console.log();
       })
       .catch((error) => {
         console.log(error);
@@ -253,8 +256,9 @@ const Update = (props) => {
         endDate: endDate,
         url: url,
         date: moment().format('YYYY.MM.DD HH:mm'),
+        postId,
       };
-      axios.post('http://localhost:7000/post/write/lend', data,
+      axios.post('http://localhost:7000/post/update', data,
         { withCredentials: true })
         .then((res) => {
           props.history.push('/'); //메인 화면으로이동
@@ -272,9 +276,10 @@ const Update = (props) => {
         price: price,
         startDate: startDate,
         endDate: endDate,
-        date: moment().format('YYYY.MM.DD HH:mm')
+        date: moment().format('YYYY.MM.DD HH:mm'),
+        postId,
       };
-      axios.post('http://localhost:7000/post/write/borrow', data,
+      axios.post('http://localhost:7000/post/update', data,
         { withCredentials: true })
         .then((res) => {
           props.history.push('/'); //메인 화면으로이동
@@ -318,14 +323,14 @@ const Update = (props) => {
           type="title"
           name="title"
           placeholder="제목"
-          onChange={setTitle}
+          onChange={(event) => setTitle(event.target.value)}
           value={title}
         /><Hr/>
         <InputStyled
           type="number"
           name="price"
           placeholder="가격"
-          onChange={setPrice}
+          onChange={(event) => setPrice(event.target.value)} 
           value={price}
         /><Hr/>
         <DivStyled>
@@ -334,11 +339,8 @@ const Update = (props) => {
             <DatePickerStyled
               dateFormat="yyyy/MM/dd"
               selected={startDate}
-              onChange={setStartDate}
+              onChange={date => setStartDate(date)}
               selectsStart
-              startDate={startDate}
-              endDate={endDate}
-              minDate={new Date()}
               locale={ko}
               value={startDate}
             />
@@ -348,11 +350,8 @@ const Update = (props) => {
             <DatePickerStyled
               dateFormat="yyyy/MM/dd"
               selected={endDate}
-              onChange={setEndDate}
+              onChange={date => setEndDate(date)}
               selectsEnd
-              startDate={startDate}
-              endDate={endDate}
-              minDate={startDate}
               locale={ko}
               value={endDate} 
             />
@@ -362,7 +361,7 @@ const Update = (props) => {
         <TextStyled
           name="content"
           placeholder="내용"
-          onChange={setContent}
+          onChange={(event) => setContent(event.target.value)}
           value={content}
         />
       </form>

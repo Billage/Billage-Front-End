@@ -4,11 +4,13 @@ import styled from "styled-components";
 const Post = styled.div`
     border-bottom: solid 2px #E5E5E5;
     border-radius:20px;
-    height:120px;
+    // height:120px;
     width:95%;
     margin:auto;
+    height:auto;
     box-sizing: border-box;
     padding:15px;
+    padding-bottom:40px;
     margin-bottom:5px;
     background:white;
     position:relative;
@@ -24,7 +26,6 @@ const PostImg = styled.div`
     margin-right: 10px;
     margin-bottom:3px;
 `;
-
 //게시글 제일 상단(글 제목, 작성날짜) 스타일링
 const PostHeader = styled.div`
     display: flex;
@@ -52,7 +53,7 @@ const PostFooter = styled.div`
 // endDate: 대여기간 마지막날
 // cost: 대여비용
 
-const PostComponent2 = ({ image, title, postDate, writerAddress, startDate, endDate, cost }) => {
+const PostComponent2 = ({ image, title, postDate, writerAddress, startDate, endDate, cost, size }) => {
     return (
         <Post>
             <PostImg>
@@ -60,22 +61,21 @@ const PostComponent2 = ({ image, title, postDate, writerAddress, startDate, endD
             </PostImg>
             <PostHeader>
                 <div style={{
-                    fontSize: '18px', fontWeight: 'bold'
+                    fontSize: (size === 'normal' ? '18px' : '14px'), fontWeight: 'bold', color: 'black'
                 }}>{title}</div>
                 <div style={{
                     color: '#7D7D7D',
-                    fontSize: '12px'
+                    fontSize: (size === 'normal' ? '12px' : '6px')
                 }}>{postDate}</div>
             </PostHeader>
             <div style={{
                 color: '#7D7D7D',
-                fontSize: '12px', fontWeight: 'bold', 'text-align': 'left'
+                fontSize: (size === 'normal' ? '12px' : '8px'), fontWeight: 'bold', 'text-align': 'left'
             }}>{writerAddress}</div>
             <PostFooter>
-                <div style={{ fontSize: '16px' }}>{`${startDate} - ${endDate}`}</div>
-                <div>{cost}원</div>
+                <div style={{ fontSize: (size === 'normal' ? '16px' : '12px') }}>{`${startDate} - ${endDate}`}</div>
+                <div style={{ fontSize: (size === 'normal' ? '18px' : '14px') }}>{cost}원</div>
             </PostFooter>
-
         </Post>
     )
 };

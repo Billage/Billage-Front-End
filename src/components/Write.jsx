@@ -31,16 +31,17 @@ const TextStyled = styled.textarea`
         width: 90%;
   `;
 const TopStyled = styled.ul` 
-    height:25px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    list-style:none;
-    margin-top:5;
-    padding:0 20px 0 20px;
-    color: black;
-    font-size:15px;
-    font-weight:bold;
+  height:30px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  list-style:none;
+  margin-top:5;
+  padding:15px 20px 0 20px;
+  color: black;
+  font-size:15px;
+  font-weight:bold;
+
   `;
 const BoardStyled = styled.ul`
     display:flex;
@@ -135,6 +136,10 @@ const DeleteButton = styled.button`
   margin-top: -46px;
 `;
 
+const Hr = styled.hr`
+  border: solid 0.1px #E7E7E7;
+`;
+
 function Write(props) {
   const [title, setTitle] = useState(""); //제목
   const [price, setPrice] = useState(""); //가격
@@ -144,23 +149,34 @@ function Write(props) {
   const [content, setContent] = useState(""); //내용
   const [fontStyle1, setFontStyle1] = useState({ 'background': "linear-gradient(to top, #FFE400 50%, transparent 50%)", color: "black" });
   const [fontStyle2, setFontStyle2] = useState({ 'background-color': "transparent", color: "lightgray" });
-
   const [menu, setMenu] = useState(true);
   const [menu1, setMenu1] = useState(true); //빌려줄게요
   const [menu2, setMenu2] = useState(false); //빌려주세요
-
-  // 이미지 업로드 버튼 클릭 시, 서버로 이미지 폼 데이터 전송 --> 서버에서 이미지의 저장경로를 보내줌(미리보기에 사용가능[?])
-  // 게시글 업로드 클릭 시, 이미지의 저장경로를 다시 서버로 전송
   const [imgArr, setImg] = useState([]);
-
+  const [list, setList] = useState([]);
+  const formData = new FormData();
+  let i = 0;
+  // const insertImg = (e) => {
+  //   for (i; i < e.target.files.length; i++) {
+  //     formData.append('img', e.target.files[i]);
+  //   }
+  //   axios.post('http://localhost:7000/post/img', formData, { withCredentials: true })
+  //     .then((res) => {
+  //       list.push(...res.data);
+  //       setImg(list);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
   const insertImg = (e) => {
-    let formData = new FormData();
     for (let i = 0; i < e.target.files.length; i++) {
       formData.append('img', e.target.files[i]);
     }
     axios.post('http://localhost:7000/post/img', formData, { withCredentials: true })
       .then((res) => {
         setImg(res.data);
+        console.log();
       })
       .catch((error) => {
         console.log(error);
@@ -195,13 +211,15 @@ function Write(props) {
   }
   //이미지 삭제 
   const deleteImg = (targetImg) => {
+    // const arr = list.filter(img => img !== targetImg);
+    // console.log(arr);
+    // setList(arr)
     const arr = imgArr.filter(img => img !== targetImg);
     setImg(arr);
   }
 
   //글 등록 버튼 클릭 시  
   const onSubmitWrite = (e) => {
-
     e.preventDefault();
     if (!title) {
       alert('제목을 입력해주세요');
@@ -275,20 +293,17 @@ function Write(props) {
           <li>게시글 쓰기</li>
           <li><button type="submit" style={{ color: '#A352CC', border: 'none', background: 'none', 'font-weight': 'bold', 'font-size': '13px' }}>등록</button></li>
         </TopStyled>
-
         <hr />
         <BoardStyled>
           <li><a href="/" onClick={(e) => { e.preventDefault(); setMenu(true); setMenu1(true); setMenu2(false); setFontStyle1({ 'background': "linear-gradient(to top, #FFE400 50%, transparent 50%)", color: "black" }); setFontStyle2({ 'background-color': "transparent", color: "lightgray" }) }} style={fontStyle1}>빌려줄게요</a></li>
           <li><a href="/" onClick={(e) => { e.preventDefault(); setMenu(false); setMenu1(false); setMenu2(true); setFontStyle1({ 'background-color': "transparent", color: "lightgray" }); setFontStyle2({ 'background': "linear-gradient(to top, #FFE400 50%, transparent 50%)", color: "black" }) }} style={fontStyle2}>빌려주세요</a></li>
         </BoardStyled>
-
         {menu ? <div>
-          <hr />
+          <Hr />
           <MainContainer>
-
             <label htmlFor='file'>
               <InitialBox>
-                <img src='https://ifh.cc/g/219dfc.png' alt="camera_img" style={{ width: '30px', 'margin-bottom': '-13px', 'padding-top': '10px' }}></img>
+                <img src='https://ifh.cc/g/219dfc.png' alt="camera_img" style={{ width: '30px', 'margin-bottom': '-5px', 'padding-top': '10px' }}></img>
                 <p style={{ color: 'gray', 'font-size': '12px' }}>{imgArr.length}/10</p>
               </InitialBox>
             </label>
@@ -298,24 +313,22 @@ function Write(props) {
             </Scroll>
           </MainContainer>
         </div> : <div />}
-        <hr />
+        <Hr />
         <InputStyled
           type="title"
           name="title"
           placeholder="제목"
           onChange={(event) => setTitle(event.target.value)}
-        /><hr />
+        /> <Hr />
         <InputStyled
           type="number"
           name="price"
           placeholder="가격"
           onChange={(event) => setPrice(event.target.value)}
-        /><hr />
-
+        /> <Hr />
         <DivStyled>
           <div>
             <DateTitle>대여시작일</DateTitle>
-
             <DatePickerStyled
               dateFormat="yyyy/MM/dd"
               selected={startDate}
@@ -341,7 +354,7 @@ function Write(props) {
             />
           </div>
         </DivStyled>
-        <hr />
+        <Hr />
         <TextStyled
           name="content"
           placeholder="내용"

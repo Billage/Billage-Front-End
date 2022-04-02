@@ -15,7 +15,9 @@
 table, th, td {
   border-collapse : collapse; 
   display: flex;
+
   width: 390px; 
+
   margin-top: 5px;
   border: 1px solid black; 
 } */
@@ -24,6 +26,7 @@ table, th, td {
 a {
   font-size: 95%;
   text-decoration: none;
+  color: inherit;
 }
 
 /* ListPage */
@@ -81,11 +84,13 @@ a {
   height: 40vmin;
   pointer-events: none;
 }
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -96,9 +101,11 @@ a {
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
 .App-link {
   color: #61dafb;
 }
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

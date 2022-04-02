@@ -113,7 +113,6 @@ const Chatting = () => {
   const [messages, setMessages] = useState([]);
   const [user, setUser] = useState('');
   let [beforeTime, setBeforeTime] = useState("");
-
   useEffect(() => {
     // 기존 쪽지
     axios.get('http://localhost:7000/chat/room', { params: { roomId: roomId, } })
@@ -140,7 +139,7 @@ const Chatting = () => {
     const data = {
       body: newMessage,
       roomId: roomId,
-      date: moment().format('YYYY-MM-DD hh:mm'),
+      date: moment().format('YYYY-MM-DD HH:mm'),
     }
     axios.post('http://localhost:7000/chat/send', data,
       { withCredentials: true })
@@ -149,7 +148,6 @@ const Chatting = () => {
       .catch((error) => {
         console.log(error);
       });
-
     setNewMessage("");
   };
 

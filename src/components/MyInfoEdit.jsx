@@ -28,7 +28,6 @@ font-size:14px;
 color:#7D7D7D;
 font-weight:600;
 `;
-
 const SubmitButton = styled.button`
     margin-top:30px;
     border:none;
@@ -50,7 +49,6 @@ const Btn = styled.button`
     border-radius:5px;
     margin-left:12px;
 `;
-
 const CloseBtn = styled.div`
     position:fixed;
     top:0;
@@ -77,36 +75,24 @@ const Head = styled.div`
     font-weight:bold;
     font-size:20px; 
 `;
-const MyInfoEdit = () => {
-    const useInput = (initValue) => {
-        const [value, setter] = useState(initValue);
-        const handler = (e) => {
-            if (e) {
-                let v = e.target.value;
-                setter(v);
-                setInitChangeNick(true);
-            }
-            else setter(initValue);
-        };
-        return [value, handler];
-    };
 
+const MyInfoEdit = () => {
     const [email, setEmail] = useState('');
     const [id, setId] = useState('');
     const [pw, setPw] = useState('');
-    const [nickname, setNickname] = useInput('');
-    const [showAddress, setShowAddress] = useState('');
+    const [nickname, setNickname] = useState('');
+    const [address, setAddress] = useState('');
     const [fullAddress, setFullAddress] = useState('');
-    //주소의 경우, 사용자에게 보여주는 것은 showAddress로 '##동'으로만 나오고, full 주소는 fullAddress에 저장됩니다.
     const [pwChk, setPwChk] = useState('');
     const [pwError, setPwError] = useState(false);
     const [chkNickname, setChkNickname] = useState(false);
-    const [showPwd, setShowPwd] = useState(false) //비밀번호 설정 칸 보이는 여부
+    const [change, setChange] = useState(false);
+    const [showPwd, setShowPwd] = useState(false)
     const [kakao, setKakao] = useState(false);
-    //처음 불러오는 유저 정보
-    const [initNickname, setInitNickname] = useState(''); //처음 불러올 때 닉네임
-    const [initChangeNick, setInitChangeNick] = useState(false);
-    // 유저 정보 가져오기
+    const [initNickname, setInitNickname] = useState('');
+    const [initAddress, setInitAddress] = useState('');
+    const [initFullAddress, setInitFullAddress] = useState('');
+
     useEffect(() => {  //처음 페이지가 실행될 때, 로그인 상태바뀔때, 사용자 주소 바뀔때 실행됨
         async function fetchUser() {
             try {
@@ -116,9 +102,9 @@ const MyInfoEdit = () => {
                 }
                 setEmail(res.data.email);
                 setId(res.data.userId);
-                setNickname(res.data.nick);
                 setInitNickname(res.data.nick); //중복될 경우를 대비하여 원래 닉네임을 저장해둡니다
-                setShowAddress(res.data.address);
+                setInitAddress(res.data.address);
+                setInitFullAddress(res.data.fullAddress);
             } catch (err) {
                 console.log(err);
             }
@@ -128,8 +114,8 @@ const MyInfoEdit = () => {
 
     const onSubmitForm = (e) => {
         e.preventDefault();
-        if (!(nickname && fullAddress)) {
-            alert(`모든 문항을 입력해주세요`);
+        if (!(nickname || fullAddress || pw || pwChk)) {
+            alert(`문항을 입력해주세요`);
             return;
         }
         if (showPwd && !(pw && pwChk)) {
@@ -137,29 +123,37 @@ const MyInfoEdit = () => {
             return;
         }
         else {
-            //  입력하지 않은 문항 알려주는 것 추가 예정
             if (showPwd && (!/^[A-Za-z0-9]{6,12}$/.test(pw))) {
                 alert('영문, 숫자 포함 6-12자리의 비밀번호를 입력해주세요.');
                 return;
             }
-            if (!chkNickname) {
+            if (!chkNickname && nickname) {
                 alert('닉네임 중복확인을 완료해주세요.');
                 return;
             }
             axios.post('http://localhost:7000/auth/update', {
                 password: pw,
-                nickname: nickname,
-                address: showAddress,
-                fullAddress: fullAddress,
+                nickname: (nickname ? nickname : initNickname),
+                address: (address ? address : initAddress),
+                fullAddress: (fullAddress ? fullAddress : initFullAddress),
             }, { withCredentials: true })
                 .then((res) => {
-                    console.log(res);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
             alert('수정되었습니다');
+            window.location.href = "/";
         }
+    };
+    const onChangeNick = (e) => {
+        setNickname(e.target.value);
+        setChange(true)
+        console.log(change);
+        console.log(nickname);
+    };
+    const onChangePw = (e) => {
+        setPw(e.target.value);
     };
     const onChangeChkPw = (e) => {
         if (!pw) {
@@ -214,66 +208,66 @@ const MyInfoEdit = () => {
             <Head style={{ marginBottom: '30px' }}>내 정보 수정</Head>
             <Page>
                 <form>
+                    {/* 이메일 부분에는 사용자 이메일이 들어오고, 수정은 불가합니다 */}
+                    <Label>이메일</Label>
+                    <InputComponent
+                        value={kakao ? "카카오 로그인시 변경할 수 없는 사항입니다" : email}
+                        name="email"
+                        label="이메일"
+                        placeholder="사용자 이메일"
+                        readOnly
+                        style={{ color: '#7D7D7D', fontStyle: 'italic' }} />
+                    {/* 아이디 부분에는 사용자 아이디가 들어오고, 수정은 불가합니다 */}
+                    <Label>아이디</Label>
+                    <InputComponent
+                        value={kakao ? "카카오 로그인시 변경할 수 없는 사항입니다" : id}
+                        name="id"
+                        label="아이디"
+                        placeholder="사용자 아이디"
+                        readOnly
+                        style={{ color: '#7D7D7D', fontStyle: 'italic' }} />
+                    {/* 카카오 로그인 확인 */}
                     {!kakao ?
                         <div>
-                            {/* 이메일 부분에는 사용자 이메일이 들어오고, 수정은 불가합니다 */}
-                            <Label>이메일</Label>
-                            <InputComponent
-                                value={email}
-                                onChange={setEmail}
-                                name="email"
-                                label="이메일"
-                                placeholder="사용자 이메일"
-                                readOnly
-                                style={{ color: '#EBCAFD', fontStyle: 'bold' }} />
-                            {/* 아이디 부분에는 사용자 아이디가 들어오고, 수정은 불가합니다 */}
-                            <Label>아이디</Label>
-                            <InputComponent
-                                onChange={setId}
-                                value={id}
-                                name="id"
-                                label="아이디"
-                                readOnly
-                                style={{ color: '#EBCAFD', fontStyle: 'bold' }} />
-                        </div> : null}
-                    <div onClick={clickPwd} style={!showPwd ? { marginBottom: '20px' } : null}>
-                        <Label style={{ display: 'inline' }}>비밀번호 변경</Label>
-                        <div style={{ display: 'inline-block', color: '#7D7D7D', fontSize: '12px', fontStyle: 'bold', textAlign: 'center', marginLeft: '5px' }}>
-                            {/* 비밀번호 변경 칸 누를 때마다 아이콘 바뀜*/}  {showPwd ? <UpOutlined /> : <DownOutlined />}
-                        </div>
-                    </div>
-                    {/* 비밀번호 변경 부분 눌렀는지 여부 확인 후 보임*/}
-                    {showPwd ? <div>
-                        <InputComponent
-                            value={pw}
-                            onChange={setPw}
-                            name="newPassword"
-                            label="새로운 비밀번호"
-                            placeholder="영문, 숫자 포함 6-12자리"
-                            type="password"
-                        />
-                        <Label>비밀번호 확인</Label>
-                        <InputComponent
-                            value={pwChk}
-                            onChange={onChangeChkPw}
-                            name="passwordChk"
-                            label="비밀번호 확인"
-                            type="password" />
-                        {pwError && <div style={{ color: '#F79F81', fontSize: '10px' }}>비밀번호가 일치하지 않습니다.</div>}
-                    </div> : null} {/* 비밀번호 변경  닫기*/}
-                    {/* 카카오 로그인 확인 닫기 */}
+                            <div onClick={clickPwd} style={!showPwd ? { marginBottom: '20px' } : null}>
+                                <Label style={{ display: 'inline' }}>비밀번호 변경</Label>
+                                <div style={{ display: 'inline-block', color: '#7D7D7D', fontSize: '12px', fontStyle: 'bold', textAlign: 'center', marginLeft: '5px' }}>
+                                    {/* 비밀번호 변경 칸 누를 때마다 아이콘 바뀜*/}  {showPwd ? <UpOutlined /> : <DownOutlined />}
+                                </div>
+                            </div>
+                            {/* 비밀번호 변경 부분 눌렀는지 여부 확인 후 보임*/}
+                            {showPwd ? <div>
+                                <InputComponent
+                                    value={pw}
+                                    onChange={onChangePw}
+                                    name="newPassword"
+                                    label="새로운 비밀번호"
+                                    placeholder="영문, 숫자 포함 6-12자리"
+                                    type="password"
+                                />
+                                <Label>비밀번호 확인</Label>
+                                <InputComponent
+                                    value={pwChk}
+                                    onChange={onChangeChkPw}
+                                    name="passwordChk"
+                                    label="비밀번호 확인"
+                                    type="password" />
+                                {pwError && <div style={{ color: '#F79F81', fontSize: '10px' }}>비밀번호가 일치하지 않습니다.</div>}
+                            </div> : null} {/* 비밀번호 변경  닫기*/}
+                        </div> : null}  {/* 카카오 로그인 확인 닫기 */}
                     <Label>닉네임</Label>
                     <InputComponent
-                        onChange={setNickname}
-                        value={initChangeNick ? nickname : initNickname}
+                        onChange={onChangeNick}
+                        value={nickname}
+                        placeholder={initNickname}
                         name="nickname"
                         label="닉네임" />
                     <Btn onClick={onClickChk} value="nickname">중복확인</Btn>
                     <Label>주소</Label>
                     <InputComponent
-                        onChange={setShowAddress}
-                        value={showAddress}
-                        name="showAddress"
+                        onChange={setAddress}
+                        value={address ? address : initAddress}
+                        name="address"
                         label="주소"
                         readOnly
                     />
@@ -284,7 +278,7 @@ const MyInfoEdit = () => {
                             style={{ width: 320, height: 320 }}
                             jsOptions={{ animated: true, hemaileMapBtn: true }}
                             onSelected={data => {
-                                setShowAddress(data.bname);
+                                setAddress(data.bname);
                                 setFullAddress(data.address);
                                 setModal(false);
                             }}
@@ -303,4 +297,5 @@ const MyInfoEdit = () => {
         </>
     );
 }
+
 export default MyInfoEdit;

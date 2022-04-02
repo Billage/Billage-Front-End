@@ -64,7 +64,7 @@ const CloseBtn = styled.div`
     border-radius:2px;
     cursor:pointer;
 `;
-const SignUp_kakao = () => {
+const SignUp_kakao = (props) => {
     const useInput = (initValue = null) => {
         const [value, setter] = useState(initValue);
 
@@ -97,11 +97,12 @@ const SignUp_kakao = () => {
                 alert('닉네임 중복확인을 완료해주세요.');
                 return;
             }
-            axios.post('url을 입력해주세요', {
+            axios.post('http://localhost:7000/auth/join/kakao', {
                 nickname: nickname,
-                address: fullAddress,
-                showAddress: showAddress,
-            }
+                address: showAddress,
+                fullAddress: fullAddress,
+            },
+                { withCredentials: true }
             ).then((res) => {
                 console.log(res);
             })
@@ -109,6 +110,7 @@ const SignUp_kakao = () => {
                     console.log(error);
                 });
             alert('가입을 환영합니다!');
+            props.history.push('/');
         }
     };
 

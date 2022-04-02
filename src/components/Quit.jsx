@@ -10,6 +10,8 @@ const Page = styled.body`
     flex-direction:row;
     justify-content: center; 
     align-items:center;
+    background: #A352CC;
+    
 `;
 // 탈퇴
 const SubmitButton1 = styled.button`
@@ -39,7 +41,7 @@ const SubmitButton2 = styled.button`
 `;
 //문구 
 const Text = styled.div`
-    margin-left: 70px;
+    margin-left: 20px;
     padding:20px;
     display:flex;
     align-items:center;
@@ -49,9 +51,8 @@ const Text = styled.div`
     color: white;
 `;
 const Text2 = styled.div`
-    margin-left: 70px;
-    margin-bottom: 230px;
-    margin-top: -10px;
+    margin-left: 20px;
+    margin-bottom: 120px;
     padding:20px;
     display:flex;
     align-items:center;
@@ -59,8 +60,8 @@ const Text2 = styled.div`
     font-size:15px;
     // font-weight:bold;
     color: white;
-    
 `;
+
 function Quit(props) {
     const history = useHistory();
     const onClickQuit = (event) => {
@@ -80,13 +81,15 @@ function Quit(props) {
     }
 
     return (
-        <div style={{ 'backgroundColor': '#A352CC' }}>
+        <div style={{ 'height': '100vh', 'backgroundColor': '#A352CC' }}>
             <Text><br />그동안, <br /> Billage를 이용해주셔서<br /> 정말 감사했어요.</Text>
             <Text2>계정을 삭제하면 찜한 물품, 채팅 등 모든<br /> 활동 정보가 삭제되며, 삭제된 활동 정보는 <br />복원이 불가능합니다. </Text2>
-            <Page>
-                <SubmitButton2 onClick={onClickBack}>취소</SubmitButton2>
-                <SubmitButton1 onClick={onClickQuit}>탈퇴하기</SubmitButton1>
-            </Page>
+            <div style={{ 'position': 'absolute', 'bottom': '0', 'left': '50%', 'transform': 'translate(-50%, -50%)' }}>
+                <Page>
+                    <SubmitButton2 onClick={onClickBack}>취소</SubmitButton2>
+                    <SubmitButton1 onClick={onClickQuit}>탈퇴하기</SubmitButton1>
+                </Page>
+            </div>
         </div>
     )
 }

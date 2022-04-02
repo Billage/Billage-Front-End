@@ -9,6 +9,7 @@ import 'antd/dist/antd.css';
 import '../index.css';
 import '../App.css';
 import { Layout, Menu } from 'antd';
+import { useMediaQuery } from "react-responsive"
 import {
     UserOutlined,
     setTwoToneColor,
@@ -17,7 +18,10 @@ import {
     EditOutlined,
     ScissorOutlined,
     HeartOutlined,
-    CommentOutlined
+    CommentOutlined,
+    CopyOutlined,
+    SolutionOutlined,
+    VerticalAlignTopOutlined
 } from '@ant-design/icons';
 setTwoToneColor('#EBCAFD');
 const { Header, Sider, Content } = Layout;
@@ -63,7 +67,6 @@ const StyledButton = styled.button`
 const List = styled.div`
     font-family:'KoddiUDOnGothic-Regular';
 `;
-
 //메뉴 스타일
 const MenuStyled = styled.div`
     display:flex;
@@ -83,7 +86,6 @@ const PageStyled = styled.div`
     width:0;
 }
 `;
-
 //메뉴바
 const MBar = styled(Menu)`
 // .ant-menu > .ant-menu-item:hover,
@@ -122,7 +124,6 @@ const MBar = styled(Menu)`
         }
     }
 `;
-
 const SideBar = styled(Sider)`
     display: ${props => props.display};
 // pointer-events:none;
@@ -148,8 +149,6 @@ const SideBar = styled(Sider)`
 //   }
 `;
 
-
-// 변경 ---------------------------------------------------
 // 로그인 상태를 서버에서 구분 후, 그에 맞는 게시글을 클라이언트로 전송
 const BorrowBoard = () => {
     const [login, setLogin] = useState(''); // 현재 로그인 상태
@@ -157,7 +156,6 @@ const BorrowBoard = () => {
     const [searchText, setSearchText] = useState(''); //검색 input 창에 입력되는 text
     const [lendYouList, setLendYouList] = useState([]); //빌려줄게요 리스트. 백엔드에서 가져온 데이터 담는 배열
     const [borrowMeList, setBorrowMeList] = useState([]); //빌려주세요 리스트
-
     const [fontStyle1, setFontStyle1] = useState({ color: "black", fontWeight: "bold" });
     const [fontStyle2, setFontStyle2] = useState({ color: "gray" });
     const [lendBtn, setLendBtn] = useState(true); //현재 빌려줄게요 게시판인지 확인
@@ -177,9 +175,7 @@ const BorrowBoard = () => {
     const [collapsed, setCollpased] = useState(true);
     //메뉴 없애기
     const toggle = () => {
-
         setCollpased(!collapsed);
-
     };
     // 유저 정보 가져오기
     const getUser = () => {
@@ -210,21 +206,23 @@ const BorrowBoard = () => {
                 console.error(error)
             })
     }, []);
-    // ---------------------------------------------------
+
     const searchChange = (e) => {//검색창에 text 입력했을 때 입력한 text를 검색 text에 넣어줌
         setSearchText(e.target.value);
     };
 
     const btnClick = () => { //검색창 버튼 클릭했을 때 뜨는 버튼
-        //filtered: 검색 결과 게시물들이 담기는 배열
+        searchText.trim();
         if (lendBtn) {
             const filtered = lendYouList.filter((post) =>
-                post.email.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
+                post.title.includes(searchText)
+            );
             setFilteredPost(filtered);
             console.log(filtered);
         } else {
             const filtered = borrowMeList.filter((post) =>
-                post.email.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
+                post.title.includes(searchText)
+            );
             setFilteredPost(filtered);
             console.log(filtered);
         }
@@ -241,6 +239,15 @@ const BorrowBoard = () => {
     const numberWithCommas = (x) => {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
+    //화면 크기별 처리 - 미디어쿼리
+    const soSmall = useMediaQuery({
+        query: "(max-width:400px)"
+    });
+
+    const normal = useMediaQuery({
+        query: "(min-width:401px)"
+    });
+
     return (
         <Layout>
             <SideBar display={collapsed ? 'none' : 'block'} trigger={null} collapsible collapsed={collapsed} style={{
@@ -258,11 +265,20 @@ const BorrowBoard = () => {
                             <Menu.Item key="3" icon={<EditOutlined />}>
                                 <a href="http://localhost:3000/write"> 게시글 작성 </a>
                             </Menu.Item>
-                            <Menu.Item key="4" icon={<CommentOutlined />}>
+                            <Menu.Item key="4" icon={<CopyOutlined />}>
+                                <a href="http://localhost:3000/mypost"> 내가 쓴 글 </a>
+                            </Menu.Item>
+                            <Menu.Item key="5" icon={<SolutionOutlined />}>
+                                <a href="http://localhost:3000/myreview"> 내가 쓴 리뷰 </a>
+                            </Menu.Item>
+                            <Menu.Item key="6" icon={<CommentOutlined />}>
                                 <a href="http://localhost:3000/chat"> 내 쪽지함 </a>
                             </Menu.Item>
-                            <Menu.Item key="5" icon={<HeartOutlined />}>
+                            <Menu.Item key="7" icon={<HeartOutlined />}>
                                 <a href="http://localhost:3000/scrap"> 내가 찜한 물품 </a>
+                            </Menu.Item>
+                            <Menu.Item key="8" icon={<VerticalAlignTopOutlined />}>
+                                <a href="http://localhost:3000/delete"> 탈퇴하기 </a>
                             </Menu.Item>
                         </>
                         : <>
@@ -274,7 +290,7 @@ const BorrowBoard = () => {
                 </MBar>
             </SideBar>
             <Layout className="site-layout">
-                <BoardNav showAddress={showAddress} login={login} boardName="게시판" />
+                <BoardNav showAddress={showAddress} login={login} boardName="게시판" size={normal ? "normal" : "soSmall"} collapsed={collapsed} />
                 <Header className="site-layout-background" style={{ position: 'absolute', top: '10px', padding: '20px', background: '#ffffff', fontSize: '30px' }}>
                     {React.createElement(collapsed ? RightCircleTwoTone : LeftCircleTwoTone, {
                         className: 'trigger',
@@ -290,7 +306,7 @@ const BorrowBoard = () => {
                         backgroundColor: 'white',
                     }}
                 >
-                    <PageStyled>
+                    <PageStyled style={{ visibility: collapsed ? 'visible' : 'hidden' }}>
                         <br />
                         <SearchBox>
                             <Input value={searchText} onChange={searchChange} onKeyPress={onKeyPress} />
@@ -303,11 +319,12 @@ const BorrowBoard = () => {
                         </MenuStyled>
                         <hr></hr>
                     </PageStyled>
-                    <List>
-                        {(!search && lendBtn) && lendYouList.map((data) => { //빌려줄게요 게시판 
+                    <List style={{ visibility: collapsed ? 'visible' : 'hidden' }}>
+                        {(!search && lendBtn) && soSmall && lendYouList.map((data) => { //빌려줄게요 게시판 - 작은 컴포넌트
                             return (<Link to={`post/${data.id}`}>
                                 <PostComponent2
-                                    image={data.url.split('[---]')[0]}
+                                    size="soSmall"
+                                    image={data.url.split('===')[0]}
                                     title={data.title}
                                     postDate={data.date}
                                     writerAddress={data.address}
@@ -318,10 +335,11 @@ const BorrowBoard = () => {
                                 /></Link>);
                         }
                         )}
-                        {(search && lendBtn) && filteredPost.map((data) => { //빌려줄게요 게시판에서 검색
+                        {(!search && lendBtn) && normal && lendYouList.map((data) => { //빌려줄게요 게시판 - 일반 컴포넌트
                             return (<Link to={`post/${data.id}`}>
                                 <PostComponent2
-                                    image={data.url.split('[---]')[0]}
+                                    size="normal"
+                                    image={data.url.split('===')[0]}
                                     title={data.title}
                                     postDate={data.date}
                                     writerAddress={data.address}
@@ -332,9 +350,11 @@ const BorrowBoard = () => {
                                 /></Link>);
                         }
                         )}
-                        {(!search && borrowBtn) && borrowMeList.map((data) => { //빌려주세요 게시판
+                        {(search && lendBtn) && soSmall && filteredPost.map((data) => { //빌려줄게요 게시판에서 검색 - 작은 컴포넌트
                             return (<Link to={`post/${data.id}`}>
-                                <PostComponent
+                                <PostComponent2
+                                    size="soSmall"
+                                    image={data.url.split('===')[0]}
                                     title={data.title}
                                     postDate={data.date}
                                     writerAddress={data.address}
@@ -345,9 +365,67 @@ const BorrowBoard = () => {
                                 /></Link>);
                         }
                         )}
-                        {(search && borrowBtn) && filteredPost.map((data) => { //빌려주세요 게시판에서 검색
+                        {(search && lendBtn) && normal && filteredPost.map((data) => { //빌려줄게요 게시판에서 검색 - 작은 컴포넌트
+                            return (<Link to={`post/${data.id}`}>
+                                <PostComponent2
+                                    size="nomal"
+                                    image={data.url.split('===')[0]}
+                                    title={data.title}
+                                    postDate={data.date}
+                                    writerAddress={data.address}
+                                    startDate={data.startDate}
+                                    endDate={data.endDate}
+                                    cost={numberWithCommas(Number(data.price))}
+                                    key={data.id}
+                                /></Link>);
+                        }
+                        )}
+                        {(!search && borrowBtn) && soSmall && borrowMeList.map((data) => { //빌려주세요 게시판 - 작은 컴포넌트
                             return (<Link to={`post/${data.id}`}>
                                 <PostComponent
+                                    size="soSmall"
+                                    title={data.title}
+                                    postDate={data.date}
+                                    writerAddress={data.address}
+                                    startDate={data.startDate}
+                                    endDate={data.endDate}
+                                    cost={numberWithCommas(Number(data.price))}
+                                    key={data.id}
+                                /></Link>);
+                        }
+                        )}
+                        {(!search && borrowBtn) && normal && borrowMeList.map((data) => { //빌려주세요 게시판 - 일반 컴포넌트
+                            return (<Link to={`post/${data.id}`}>
+                                <PostComponent
+                                    size="normal"
+                                    title={data.title}
+                                    postDate={data.date}
+                                    writerAddress={data.address}
+                                    startDate={data.startDate}
+                                    endDate={data.endDate}
+                                    cost={numberWithCommas(Number(data.price))}
+                                    key={data.id}
+                                /></Link>);
+                        }
+                        )}
+                        {(search && borrowBtn) && normal && filteredPost.map((data) => { //빌려주세요 게시판에서 검색 - 일반 컴포넌트
+                            return (<Link to={`post/${data.id}`}>
+                                <PostComponent
+                                    size="normal"
+                                    title={data.title}
+                                    postDate={data.date}
+                                    writerAddress={data.address}
+                                    startDate={data.startDate}
+                                    endDate={data.endDate}
+                                    cost={numberWithCommas(Number(data.price))}
+                                    key={data.id}
+                                /></Link>);
+                        }
+                        )}
+                        {(search && borrowBtn) && soSmall && filteredPost.map((data) => { //빌려주세요 게시판에서 검색 - 작은 컴포넌트
+                            return (<Link to={`post/${data.id}`}>
+                                <PostComponent
+                                    size="soSmall"
                                     title={data.title}
                                     postDate={data.date}
                                     writerAddress={data.address}

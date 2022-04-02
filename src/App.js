@@ -44,7 +44,6 @@ function App() {
           <Route exact path="/chat" component={ChatList}/>
           <Route exact path="/post/:id" component={ShowPost}/>
           <Route exact path="/post/:id/update" component={Update}/>
-          <Route exact path="/" component={MainBoards}/>
           <Route exact path="/scrap" component={Scrap}/>
           <Route exact path="/FindId" component={FindId}/>
           <Route exact path="/FindPw" component={FindPw}/>

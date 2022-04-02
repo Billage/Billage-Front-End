@@ -4,7 +4,7 @@ import styled from "styled-components";
 // 채팅 하나 전체를 묶는 div 태그의 스타일링
 const Chat=styled.div`
     border-bottom: solid 2px #E5E5E5;
-    height:100px;
+    height:90px;
     width:95%;
     margin:auto;
     // margin-top: 10px;
@@ -42,20 +42,17 @@ const ChatListComponent=({user, content, address, read})=>{
         <Chat>
         <ChatHeader>
         <p style={{
-        fontSize:'18px', fontWeight:'bold', marginRight:'15px'}}>{user}</p>
-        <p style={{
-        fontSize:'13px', color: '#7D7D7D', marginTop: '0px'}}>{address}</p>
+        fontSize:'18px', fontWeight:'bold', marginRight:'15px', marginTop: '8px'}}>{user}</p>
         </ChatHeader>
-        <ChatRight>        
+        {/* <ChatRight>        
             <div style={{color:'#7D7D7D',
                 fontSize:'12px'}}>{read}</div>
-        </ChatRight>
-
+        </ChatRight> */}
         <ChatFooter>
-            <div>{content}</div>
+            <div style={{marginTop: '-8px'}}>{content}</div>
         </ChatFooter>
         </Chat>
     )
 };
 
-export default ChatListComponent;
+export default ChatListComponent

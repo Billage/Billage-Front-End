@@ -55,6 +55,9 @@ const WriteList = () => {
         e.preventDefault(); setFontStyle1({ color: "gray" }); setFontStyle2({ color: "black", fontWeight: "bold" });
         setBorrowBtn(true); setLendBtn(false);
     };
+    const getUser = () => {
+        return axios.get("http://localhost:7000/auth", { withCredentials: true })
+    };
     // 빌려줄게요 게시글 가져오기
     const getLendYou = () => {
         return axios.get("http://localhost:7000/post/lend", { withCredentials: true })
@@ -65,10 +68,16 @@ const WriteList = () => {
     };
     //각 게시판의 글을 가져올때 사용하는 통신입니다.
     useEffect(() => {  //처음 페이지가 실행될 때, 로그인 상태바뀔때, 사용자 주소 바뀔때 실행됨
-        axios.all([getLendYou(), getBorrowMe()]) // axios.all로 여러 개의 request를 보내고
+        axios.all([getLendYou(), getBorrowMe(), getUser()]) // axios.all로 여러 개의 request를 보내고
             .then(axios.spread((lendResp, borrowResp, user) => { // response를 spread로 받는다. 
-                setLendYouList(lendResp.data);
-                setBorrowMeList(borrowResp.data);
+                const filteredLendList = lendResp.data.filter((post) =>
+                    post.userId === user.data.id
+                );
+                const filteredBorrowList = borrowResp.data.filter((post) =>
+                    post.userId === user.data.id
+                );
+                setLendYouList(filteredLendList);
+                setBorrowMeList(filteredBorrowList);
             }))
             .catch((error) => {
                 console.error(error)
@@ -81,7 +90,6 @@ const WriteList = () => {
 
     return (
         <>
-            {/* <BoardNav showAddress={showAddress} login={isLogined} boardName="게시판" />     */}
             <PageStyled>
                 <br />
                 <p style={{ fontSize: '16px', color: '#A352CC', fontWeight: 'bolder', textAlign: 'center', marginTop: '-5px' }}>내가 쓴 글</p>
@@ -97,7 +105,7 @@ const WriteList = () => {
                 {lendBtn && lendYouList.map((data) => { //빌려줄게요 게시판(default)
                     return (<Link to={`post/${data.id}`}>
                         <PostComponent2
-                            image={data.url.split('[---]')[0]}
+                            image={data.url.split('===')[0]}
                             title={data.title}
                             postDate={data.date}
                             writerAddress={data.address}
@@ -118,7 +126,7 @@ const WriteList = () => {
                             writerAddress={data.address}
                             startDate={data.startDate}
                             endDate={data.endDate}
-                            cost={numberWithCommas(Number(data.price))}원
+                            cost={numberWithCommas(Number(data.price))} 원
                             key={data.id}
                         />
                     </Link>

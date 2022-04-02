@@ -4,24 +4,19 @@ import Logo from "./Logo"
 import LoginBtn from "./Login_btn"
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
-import { withRouter } from 'react-router-dom';
-
 // id저장, 회원가입 부분 style
 const Styled = styled.div`
- width: 390px;
- margin-top: auto;
- margin-botton: auto;
- display: inline-block;
-
- margin: 5px 0px 20px 5px;
+  width: 390px;
+  margin-top: auto;
+  margin-botton: auto;
+  display: inline-block;
+  margin: 5px 0px 20px 5px;
 `;
-
 const Center = styled.div`
   display: flex;
   justify-content: center;
 
 `;
-
 //Id, Pw input창 
 const Input = styled.input`
     // border-radius: 30px;
@@ -34,19 +29,16 @@ const Input = styled.input`
 
 
 function LoginPage(props) {
-
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [saveId, setSaveId] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(['rememberId']);
-
   const onIdHandler = (e) => {
     setId(e.currentTarget.value);
   }
   const onPasswordHandler = (e) => {
     setPassword(e.currentTarget.value);
   }
-
   //쿠키에 id저장
   useEffect(() => {
     if (cookies.rememberId !== undefined) {
@@ -84,11 +76,10 @@ function LoginPage(props) {
       return;
     }
     //서버에 보냄
-    const ans = {
+    let ans = {
       email: id,
       password: password
-    };
-
+    }
     axios.post('http://localhost:7000/auth/login', ans, { withCredentials: true })
       .then((res) => {
         if (res.data) {
@@ -101,7 +92,6 @@ function LoginPage(props) {
         console.log(error);
       });
   }
-
   let inputStyle = {
     width: "380px",
     height: "60px",
@@ -119,22 +109,14 @@ function LoginPage(props) {
           <Styled>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <label style={{ color: '#878787' }}><input type="checkbox" name="save_id" value="save_id" checked={saveId} onChange={handleOnChange} />ID 저장</label>
-              <a href="/FindAccount" style={{ marginLeft: '160px' }}>ID/PW 찾기</a>
-              <a href="/join">회원가입</a>
+              <a href="/find" style={{ marginLeft: '160px', color: 'inherit', textDecoration: 'inherit' }}>ID/PW 찾기</a>
+              <a href="/join" style={{ color: 'inherit', textDecoration: 'inherit' }}>회원가입</a>
             </div>
           </Styled>
           <br />
-
           <button style={{ border: 'none', background: 'none' }} type="submit"><LoginBtn title="빌리지"></LoginBtn></button>
           <br />
           <button style={{ border: 'none', background: 'none' }} onClick={kakaoSubmit} ><LoginBtn title="카카오톡"></LoginBtn></button>
-
-
-          {/* <div style={{marginTop: '10px'}}>
-                  <a href="/SignUp" style={{margin: '10px'}}>회원가입 </a>  
-                  <a href="/">아이디/비밀번호 찾기</a>             
-                </div> */}
-
         </form>
 
       </Center>

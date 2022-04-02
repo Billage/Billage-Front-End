@@ -9,13 +9,11 @@ import { ReviewButton, PostHeader } from './ShowPost';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
-const ReviewWrite = ({ match }) => {
+const ReviewWrite = (props) => {
   const [reviewContent, setReviewContent] = useState('');
   const [currentValue, setCurrentValue] = useState(0);
   const history = useHistory();
-  console.log(reviewContent);
-  console.log(currentValue);
-  const postId = match.params.id;
+  const postId = props.match.params.id;
   const submitBtn = (e) => {
     if (!currentValue) {
       alert('별점을 눌러주세요.')
@@ -31,7 +29,7 @@ const ReviewWrite = ({ match }) => {
       axios.post('http://localhost:7000/review/write', data,
         { withCredentials: true })
         .then((res) => {
-          history.goBack();
+          props.history.push('/post/' + postId);
         })
         .catch((error) => {
           console.log(error);

@@ -121,7 +121,7 @@ const ImgTurn = styled.div`
     text-align:center;
 `;
 
-const ReviewButton=styled(Button)`
+const ReviewButton = styled(Button)`
     background-color:#ffffff;
     border:1px solid #E5E5E5;
     color:#A352CC;
@@ -135,7 +135,7 @@ const ReviewButton=styled(Button)`
     font-size:12px;
 `;
 
-const ChatButton2=styled(Button)`
+const ChatButton2 = styled(Button)`
     background-color:#A352CC;
     border:1px solid #ffffff;
     color:#ffffff;
@@ -147,7 +147,41 @@ const ChatButton2=styled(Button)`
 `;
 
 const StyledTab = styled(Tabs)`
-    size:large;
+
+.ant-tabs-ink-bar {
+  background-color:#A352CC;
+  padding:0px;
+  margin:0px;
+}
+.ant-tabs-tab-btn{
+  width:30vw;
+  text-align:center;
+  padding:0px;
+  margin:0px;
+  &:hover, &:active, &:focus, &:target{
+    color:#A352CC;
+    }
+    [aria-selected='true'] {
+        color:#A352CC;
+      }
+  
+}
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+    color:#A352CC;
+  }
+#rc-tabs-1-tab-1{
+  border-right:2px solid;
+  padding:0px;
+  margin:0px;
+  
+}
+#rc-tabs-1-tab-2{
+  
+  border-left:2px solid;
+  padding:0px;
+  margin:0px;
+}   
+    
 `;
 
 const ShowPost = () => {
@@ -216,7 +250,16 @@ const ShowPost = () => {
 
     //채팅 보내기 버튼 눌렀을 때 
     const onClickChat = () => {
-        window.location.href = `/chat/${postId}_${curUser.id}`;
+        axios.post('http://localhost:7000/chat/room', {
+            roomId: `${postId}_${curUser.id}`,
+            user1: postInfo.nick,
+            user2: curUser.nick,
+        }, { withCredentials: true })
+            .then((res) => {
+                window.location.href = `/chat/${postId}_${curUser.id}`;
+            }).catch((err) => {
+                console.log(err);
+            })
     }
 
     //찜 버튼 
@@ -316,7 +359,7 @@ const ShowPost = () => {
                     </HighLight> {/* 제품 가격*/}
                     <div style={{ 'display': 'flex', 'marginTop': '5px' }}>
                         {/* 게시글 찜 */}
-                        <LikeButton onSubmit={onLikeSubmit} />
+                        <LikeButton onSubmit={onLikeSubmit} postId={postId} />
                         {/* 채팅 */}
                         <ChatButton2 onClick={onClickChat}>쪽지 보내기</ChatButton2>
                     </div>
