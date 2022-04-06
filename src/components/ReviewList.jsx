@@ -20,7 +20,6 @@ const StyledList = styled(List)`
   background:#A352CC;
 }
 `;
-
 const ReviewList = () => {
   const [initLoading, setInitLoading] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -40,13 +39,11 @@ const ReviewList = () => {
         setInitLoading(false);
         setData(res.data);
         if (res.data.length > 3) {
-          console.log(res.data);
           setList([res.data[index], res.data[index + 1], res.data[index + 2]]);
           setIndex(index + 3);
         } else {
           setList(res.data);
         }
-
       }).catch((error) => {
         console.log(error);
       })
@@ -86,6 +83,7 @@ const ReviewList = () => {
       withCredentials: true
     })
       .then((res) => {
+        setIndex(index);
         getReviews();
       })
       .catch((error) => {
@@ -109,6 +107,7 @@ const ReviewList = () => {
         : null)
       : null;
 
+
   return (
     <StyledList
       className="demo-loadmore-list"
@@ -117,8 +116,7 @@ const ReviewList = () => {
       loadMore={loadMore}
       dataSource={list}
       renderItem={item => (
-        <List.Item
-          actions={item.nick === curUser.nick && [<Link to={`/review/edit/${item.id}`} style={{ color: 'black' }}>수정</Link>, <deleteButton onClick={deleteReview} reviewId={item.id} style={{ color: 'black' }}>삭제</deleteButton>]}>
+        <List.Item>
           <Skeleton avatar title={false} loading={item.loading} active>
             <List.Item.Meta
               avatar={<Avatar src={profile} />}
@@ -128,7 +126,10 @@ const ReviewList = () => {
                     <span style={{ fontWeight: 'bold' }}>{item.nick}</span>
                     <Rate allowHalf style={{ color: '#EBCAFD', fontSize: '16px', marginRight: '20px' }} disabled defaultValue={item.score} />
                   </div>
-                  <span style={{ fontWeight: 'normal', color: '#7D7D7D', fontSize: '12px' }}>{item.date}</span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginRight: '20px' }}>
+                    <span style={{ fontWeight: 'normal', color: '#7D7D7D', fontSize: '12px' }}>{item.date}</span>
+                    <div>{item.nick === curUser.nick && [<Link to={`/review/edit/${item.id}`} style={{ color: 'black', fontWeight: 'normal', fontSize: '13px', marginRight: '8px' }}>수정</Link>, <deleteButton onClick={deleteReview} reviewId={item.id} style={{ color: 'black', fontWeight: 'normal', fontSize: '13px' }}>삭제</deleteButton>]}</div>
+                  </div>
                 </div>
               }
               description={

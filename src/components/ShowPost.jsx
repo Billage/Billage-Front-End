@@ -308,7 +308,7 @@ const ShowPost = () => {
                             {postInfo.nick}
                         </div>
                         <div style={{ color: '#7D7D7D', fontSize: '11px' }}>
-                            {postInfo.showAddress}
+                            {postInfo.address}
                         </div>
                     </div>
                     <HighLight>
