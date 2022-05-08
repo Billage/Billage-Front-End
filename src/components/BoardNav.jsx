@@ -5,6 +5,7 @@ import { Img } from "../components/MainBoards";
 import 'antd/dist/antd.css';
 import { Layout } from 'antd';
 import { setTwoToneColor } from '@ant-design/icons';
+
 setTwoToneColor('#EBCAFD');
 // nav 바를 감싸는 ul 태그 styled component 입니다.
 const StyledNav = styled.ul` 
