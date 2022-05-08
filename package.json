@@ -13,6 +13,7 @@
     "babel-preset-es2015": "^6.24.1",
     "chroma-js": "^2.1.2",
     "firebase": "^9.0.1",
+    "less-loader": "^7.3.0",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
     "next-redux-wrapper": "^7.0.4",

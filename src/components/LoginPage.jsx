@@ -4,6 +4,8 @@ import Logo from "./Logo"
 import LoginBtn from "./Login_btn"
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
+import styledModal from '../components/MyModal';
+
 // id저장, 회원가입 부분 style
 const Styled = styled.div`
   width: 390px;
@@ -66,7 +68,7 @@ function LoginPage(props) {
 
     //아이디 또는 비밀번호 입력안했을 때 
     if (!id && !password) {
-      alert('아이디와 비밀번호를 입력하세요');
+        styledModal("아이디와 비밀번호를 입력하세요");
       return;
     } else if (!id) {
       alert('아이디를 입력하세요');
