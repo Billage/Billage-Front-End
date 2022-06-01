@@ -1,10 +1,10 @@
-# 💜**빌리지 - Mobile web Service**💜
+# **💜빌리지 - Mobile web Service💜**
 
 <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/9509a033-b97a-4c4f-95ae-12758aeee5bc/Billage.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220508%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220508T055113Z&X-Amz-Expires=86400&X-Amz-Signature=2f73fab001c5a758bf5c8623f63da8ffcf7cd98b2e43c09e80014f3d354c684c&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Billage.png%22&x-id=GetObject">
 
 <br>
 
-## 🏙**"우리는 Billage에서 빌리지!”**
+## **🏙"우리는 Billage에서 빌리지!”**
 
 ---
 
