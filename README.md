@@ -36,8 +36,9 @@
         </td>
     </tr
      <tr align="center">
-         <td>
-           동덕여자대학교 컴퓨터학과
+         <td align="center">
+           동덕여자대학교 <br/> 컴퓨터학과
+           <br/> HCI사이언스전공
         </td>
          <td align="center">
             인하대학교 <br/> 문화콘텐츠문화경영학과 
