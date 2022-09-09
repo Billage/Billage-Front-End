@@ -60,7 +60,8 @@
 
 ## 📝기능 상세📝
 
-### **회원가입 & 로그인**
+## ✨회원가입 & 로그인✨
+<img src="https://user-images.githubusercontent.com/80065381/176419796-af63adb2-46b3-48ce-8307-3a3ca7e15c9e.gif" width="400"/>
 
 - Billage ID 로그인(로컬 로그인) / 카카오톡 로그인
 - 아이디 이메일 포맷 체크
@@ -70,33 +71,35 @@
 - 주소 입력
 - ID 저장
 
-![로컬 로그인](https://user-images.githubusercontent.com/80065381/176419796-af63adb2-46b3-48ce-8307-3a3ca7e15c9e.gif)
+<br/>
 
-
-### ID / PW 찾기
+## ✨ID / PW 찾기✨
+<img src="https://user-images.githubusercontent.com/80065381/189307564-ec9dba1a-03b4-40c3-905f-cbd4c6e8b671.gif" width="400"/>
 
 - 가입 시 등록한 이메일로 일치하는 회원정보 확인
 - 이메일 포맷 체크
 - 이메일로 ID/PW 발신
 
-### 게시글 목록(메인페이지)
+<br/>
+
+## ✨게시글 목록(메인페이지)✨
+<img src="https://user-images.githubusercontent.com/80065381/176419834-08c1bfd3-848e-40de-949e-6b740cb283df.gif" width="400"/>
 
 - 사용자가 입력한 주소기반
 
+<br/>
 
-![메인페이지](https://user-images.githubusercontent.com/80065381/176419834-08c1bfd3-848e-40de-949e-6b740cb283df.gif)
-
-
-### 게시글 작성하기
+## ✨게시글 작성하기✨
+<img src="https://user-images.githubusercontent.com/80065381/176419953-3f57b7f6-3ef6-429d-a1bc-911a511d84cf.gif" width="400"/>
 
 - 빌려주세요 & 빌려줄게요 게시판
 - 사진 등록(빌려주세요 게시판)
 - 제목, 가격, 대여시작일/대여종료일, 내용 입력
 
-![글쓰기](https://user-images.githubusercontent.com/80065381/176419953-3f57b7f6-3ef6-429d-a1bc-911a511d84cf.gif)
+<br/>
 
-
-### 게시글 상세보기
+## ✨게시글 상세보기✨
+<img src="https://user-images.githubusercontent.com/80065381/176419994-91425b87-b4eb-4321-8e98-e22b24cedc0e.gif" width="400"/>
 
 - 빌려주세요 & 빌려줄게요 게시판
 - 본문 내용 (이미지, 제목, 가격, 대여시작일/대여종료일, 내용)
@@ -105,38 +108,60 @@
 - 쪽지 보내기
 
 
-![본문글](https://user-images.githubusercontent.com/80065381/176419994-91425b87-b4eb-4321-8e98-e22b24cedc0e.gif)
+<br/>
 
-
-### 대여 후기 작성
+## ✨대여 후기 작성✨
+<img src="https://user-images.githubusercontent.com/80065381/189308786-aa58751d-503e-4a19-85b5-363ea8491ac9.gif" width="400"/>
 
 - 별점, 평가 작성
 
-### 쪽지보내기 / 쪽지함
-![쪽지1](https://user-images.githubusercontent.com/80065381/176420028-a99f21b5-80fa-4297-944b-9d90f40a98e0.gif)
-![쪽지2](https://user-images.githubusercontent.com/80065381/176420065-e6268778-d501-4d2b-a242-0041f2c4c1ee.gif)
+
+<br/>
+
+## ✨쪽지보내기 / 쪽지함✨
+<img src="https://user-images.githubusercontent.com/80065381/176420028-a99f21b5-80fa-4297-944b-9d90f40a98e0.gif" width="400"/>
+<img src="https://user-images.githubusercontent.com/80065381/176420065-e6268778-d501-4d2b-a242-0041f2c4c1ee.gif" width="400"/>
 
 
-### 내가 쓴 글 / 리뷰 목록
-![내가 쓴글](https://user-images.githubusercontent.com/80065381/176420397-75474cf0-c047-4b5e-823f-a7ccd9ae4dca.gif)
-![내가쓴후기](https://user-images.githubusercontent.com/80065381/176421046-a979e6eb-485e-4da3-9e46-2753abe9b23c.gif)
+
+<br/>
+
+## ✨내가 쓴 글 / 리뷰 목록✨
+- 내가 쓴 글
+
+<img src="https://user-images.githubusercontent.com/80065381/176420397-75474cf0-c047-4b5e-823f-a7ccd9ae4dca.gif" width="400"/>
+
+- 리뷰 목록
+
+<img src="https://user-images.githubusercontent.com/80065381/176421046-a979e6eb-485e-4da3-9e46-2753abe9b23c.gif" width="400"/>
 
 
-### 내가 찜한 물품 목록
-![찜](https://user-images.githubusercontent.com/80065381/176421103-0759dcf3-f8cd-4c86-8de3-e9b6b21f4f90.gif)
+<br/>
+
+## ✨내가 찜한 물품 목록✨
+<img src="https://user-images.githubusercontent.com/80065381/176421103-0759dcf3-f8cd-4c86-8de3-e9b6b21f4f90.gif" width="400"/>
 
 
-### 회원정보 수정 / 탈퇴하기
+<br/>
+
+## ✨회원정보 수정 / 탈퇴하기✨
+- 회원정보 수정
+
+<img src="https://user-images.githubusercontent.com/80065381/176420122-cb75dea7-aa15-4d82-a3df-18016dad8383.gif" width="400"/>
 
 - 비밀번호 변경
 - 닉네임, 주소 수정
 
 
-![내정보수정](https://user-images.githubusercontent.com/80065381/176420122-cb75dea7-aa15-4d82-a3df-18016dad8383.gif)
+- 탈퇴하기
+
+<img src="https://user-images.githubusercontent.com/80065381/189310814-ce61f23c-a076-4d61-8d87-13a92b083a8c.gif" width="400"/>
 
 
 
-### 그외
+<br/>
+
+## ✨그외✨
 
 - 메뉴바
 - 알림 modal 창
@@ -145,48 +170,122 @@
 
 
 
-
-
 <br/><br/>
 
-## 🔗ERD🔗
-
-<img width="500" alt="ERD 빌리지" src="https://user-images.githubusercontent.com/80065381/189300928-17aa1adc-752a-4678-923c-e39d4e9d2284.png">
-
-
-<br/><br/>
 
 ## 🔨Tech Stack🔨
-- Node.js
-- Express
-- MySQL
-- Sequelize
+- React js
+- Axios
+- ant design
+- styled-component
 - GitHub
-- Slack
-
 
 ```json
-"dependencies": {
-    "bcrypt": "^5.0.1",
-    "body-parser": "^1.19.0",
-    "cookie-parser": "^1.4.5",
-    "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "express-session": "^1.17.2",
-    "multer": "^1.4.3",
-    "mysql2": "^2.3.0",
-    "nodemailer": "^6.7.2",
-    "passport": "^0.4.1",
-    "passport-kakao": "^1.0.1",
-    "passport-local": "^1.0.0",
-    "sequelize": "^6.6.5",
-    "sequelize-cli": "^6.2.0"
-  }
+    "@actbase/react-daum-postcode": "^1.0.1",
+    "@material-ui/core": "^4.12.3",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "antd": "^4.16.13",
+    "axios": "^0.21.4",
+    "babel-preset-es2015": "^6.24.1",
+    "chroma-js": "^2.1.2",
+    "firebase": "^9.0.1",
+    "less-loader": "^7.3.0",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
+    "next-redux-wrapper": "^7.0.4",
+    "qs": "^6.7.0",
+    "react": "^17.0.2",
+    "react-cookie": "^4.0.3",
+    "react-datepicker": "^4.2.1",
+    "react-daum-postcode": "^2.0.6",
+    "react-dom": "^17.0.2",
+    "react-dropzone": "^11.3.4",
+    "react-icons": "^4.2.0",
+    "react-image-gallery": "^1.2.7",
+    "react-modal": "^3.14.3",
+    "react-moment": "^1.1.1",
+    "react-native-webview": "^11.13.0",
+    "react-redux": "^7.2.6",
+    "react-responsive": "^9.0.0-beta.6",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^4.0.3",
+    "redux": "^4.1.2",
+    "redux-promise": "^0.6.0",
+    "redux-thunk": "^2.3.0",
+    "socket.io-client": "^4.2.0",
+    "styled-components": "^5.3.0",
+    "web-vitals": "^1.1.2"
 ```
 <br/><br/>
 ## 📂Directory📂
-<img width="450" alt="디렉토리 - 백" src="https://user-images.githubusercontent.com/80065381/189302340-70c8fa9a-4134-4f94-b5bc-9a4911dd2a32.png">
-
-
+```
+|📁 src
+├──📁 components 
+│  ├── 📁 images
+│  ├── BoardNav.jsx
+│  ├── ChatList.jsx
+│  ├── ChatListComponent.jsx
+│  ├── Chatting.jsx
+│  ├── client.jsx
+│  ├── FindAccount.jsx
+│  ├── FindId.jsx
+│  ├── FindPw.jsx
+│  ├── LikeButton.jsx
+│  ├── Login_btn.jsx
+│  ├── LoginPage.jsx
+│  ├── Logo.jsx
+│  ├── MainBoards.jsx
+│  ├── MyInfoEdit.jsx
+│  ├── MyModal.jsx
+│  ├── MyReviewList.jsx
+│  ├── PostComponent.jsx
+│  ├── PrimaryBtn.css
+│  ├── Quit.jsx
+│  ├── reportWebVitals.js
+│  ├── ReviewEdit.jsx
+│  ├── ReviewList.jsx
+│  ├── ReviewWrite.jsx
+│  ├── Scrap.jsx
+│  ├── ReviewEdit.jsx
+│  ├── ReviewList.jsx
+│  ├── ReviewWrite.jsx
+│  ├── Scrap.jsx
+│  ├── setUpTest.js
+│  ├── ShowPost.jsx
+│  ├── SignUp_kakao.jsx
+│  ├── SignUp.jsx
+│  ├── Update.jsx
+│  ├── Write.jsx
+│  ├── WriteList.jsx
+│  ├── Scrap.jsx
+│  ├── 📁 images
+│  ├── BoardNav.jsx
+│  ├── ChatList.jsx
+│  ├── ChatListComponent.jsx
+│  ├── Chatting.jsx
+│  ├── client.jsx
+│  ├── FindAccount.jsx
+│  ├── FindId.jsx
+│  ├── FindPw.jsx
+│  ├── LikeButton.jsx
+│  ├── Login_btn.jsx
+│  ├── LoginPage.jsx
+├──  App.css
+├──  App.js
+├──  App.test.js
+├──  ChatStyle.css
+├──  index.css
+├──  index.js
+├──  reportWebVitals.js
+├──  setUpTests.js
+├──  useChat.js
+├──  setUpTests.js
+|.gitignore
+|dsds
+|pachage-lock.json
+|pachage.json
+|README.md
+```
 
